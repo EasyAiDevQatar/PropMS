@@ -12,9 +12,17 @@
  "field_order": [
   "identification_section",
   "name1",
+  "property_name",
+  "property_type",
   "parent_property",
   "is_group",
   "column_break_2",
+  "address",
+  "city_area",
+  "property_owner",
+  "status",
+  "total_units",
+  "notes",
   "photo",
   "company",
   "cost_center",
@@ -36,7 +44,6 @@
   "security_deposit",
   "smoking",
   "furnished",
-  "status",
   "section_break_22",
   "unit_assets",
   "column_break_24",
@@ -59,9 +66,21 @@
   {
    "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Name",
+   "label": "Property Code",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "property_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Property Name"
+  },
+  {
+   "fieldname": "property_type",
+   "fieldtype": "Link",
+   "label": "Property Type",
+   "options": "Property Type"
   },
   {
    "fieldname": "parent_property",
@@ -72,6 +91,32 @@
   {
    "fieldname": "column_break_2",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "city_area",
+   "fieldtype": "Data",
+   "label": "City / Area"
+  },
+  {
+   "fieldname": "property_owner",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "total_units",
+   "fieldtype": "Int",
+   "label": "Total Units"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
   },
   {
    "fieldname": "photo",
@@ -180,8 +225,9 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Available\nBooked\nCommon Area (Not for lease)\nManaged for Customer\nOff Lease in 3 Months\nOn Lease\nOn Sale\nRemoved\nRenewal\nSold\nVacating"
+   "options": "Available\nRented\nSold\nUnder Maintenance\nBooked\nCommon Area (Not for lease)\nManaged for Customer\nOff Lease in 3 Months\nOn Lease\nOn Sale\nRemoved\nRenewal\nVacating"
   },
   {
    "bold": 1,

@@ -33,6 +33,24 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Property Type",
+   "link_to": "Property Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Unit Master",
+   "link_to": "Unit Master",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Unit Type",
    "link_to": "Unit Type",
    "link_type": "DocType",
@@ -98,6 +116,15 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Charges Setup",
+   "link_to": "Charges Setup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Meter",
    "link_to": "Meter",
    "link_type": "DocType",
@@ -118,6 +145,33 @@
    "is_query_report": 0,
    "label": "Lease",
    "link_to": "Lease",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Lease Agreement",
+   "link_to": "Lease Agreement",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Schedule",
+   "link_to": "Payment Schedule",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Real Estate Invoice Request",
+   "link_to": "Real Estate Invoice Request",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
