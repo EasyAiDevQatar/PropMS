@@ -1,0 +1,88 @@
+[
+    {
+        "doctype": "Custom Field",
+        "dt": "Contract",
+        "fieldname": "propms_section_break",
+        "fieldtype": "Section Break",
+        "label": "Property Management",
+        "insert_after": "ip_validation",
+        "name": "Contract-propms_section_break"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Contract",
+        "fieldname": "propms_property",
+        "fieldtype": "Link",
+        "label": "Property",
+        "options": "Property",
+        "in_standard_filter": 1,
+        "insert_after": "propms_section_break",
+        "name": "Contract-propms_property"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Contract",
+        "fieldname": "propms_unit",
+        "fieldtype": "Link",
+        "label": "Unit",
+        "options": "Unit Master",
+        "in_standard_filter": 1,
+        "insert_after": "propms_property",
+        "name": "Contract-propms_unit"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Contract",
+        "fieldname": "propms_tenant",
+        "fieldtype": "Link",
+        "label": "Tenant",
+        "options": "Customer",
+        "in_standard_filter": 1,
+        "insert_after": "propms_unit",
+        "name": "Contract-propms_tenant"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Contract",
+        "fieldname": "propms_lease_agreement",
+        "fieldtype": "Link",
+        "label": "Lease Agreement",
+        "options": "Lease Agreement",
+        "in_standard_filter": 1,
+        "insert_after": "propms_tenant",
+        "name": "Contract-propms_lease_agreement"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Purchase Invoice",
+        "fieldname": "propms_maintenance_request",
+        "fieldtype": "Link",
+        "label": "Maintenance Request",
+        "options": "Maintenance Request",
+        "in_standard_filter": 1,
+        "insert_after": "remarks",
+        "name": "Purchase Invoice-propms_maintenance_request"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Purchase Invoice",
+        "fieldname": "propms_property",
+        "fieldtype": "Link",
+        "label": "Property",
+        "options": "Property",
+        "in_standard_filter": 1,
+        "insert_after": "propms_maintenance_request",
+        "name": "Purchase Invoice-propms_property"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Purchase Invoice",
+        "fieldname": "propms_unit",
+        "fieldtype": "Link",
+        "label": "Unit",
+        "options": "Unit Master",
+        "in_standard_filter": 1,
+        "insert_after": "propms_property",
+        "name": "Purchase Invoice-propms_unit"
+    }
+]

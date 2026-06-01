@@ -376,13 +376,22 @@ def makeInvoiceSchedule(
         document_type = "Sales Invoice"
     try:
         date_to_invoice = add_days(date, -1 * (days_to_invoice_in_advance or 0))
+
+        # Detect whether the parent is the legacy Lease or the new Lease Agreement.
+        if frappe.db.exists("Lease", name):
+            parenttype = "Lease"
+        elif frappe.db.exists("Lease Agreement", name):
+            parenttype = "Lease Agreement"
+        else:
+            parenttype = "Lease"
+
         frappe.get_doc(
             dict(
                 idx=idx,
                 doctype="Lease Invoice Schedule",
                 parent=name,
                 parentfield="lease_invoice_schedule",
-                parenttype="lease",
+                parenttype=parenttype,
                 date_to_invoice=date_to_invoice,
                 schedule_start_date=date,
                 lease_item=item,
@@ -396,7 +405,6 @@ def makeInvoiceSchedule(
                 document_type=document_type,
             )
         ).insert()
-        # frappe.msgprint(str(doc.name))
     except Exception as e:
         app_error_log(frappe.session.user, str(e))
 
@@ -618,3 +626,36 @@ def get_latest_active_lease(property_id):
         return lease_details[0].name
     else:
         return ""
+
+
+@frappe.whitelist()
+def contract_status_changed(self, method=None):
+    """Sync Unit Master status when a Contract is cancelled or its status changes.
+
+    Listens on the default ERPNext Contract doctype. Custom fields named
+    `propms_unit` and `propms_lease_agreement` carry the link to our Unit
+    Master / Lease Agreement.
+    """
+    try:
+        unit = getattr(self, "propms_unit", None)
+        if not unit:
+            return
+
+        is_cancelled = (
+            (method == "on_cancel")
+            or getattr(self, "docstatus", 0) == 2
+            or getattr(self, "status", "") in ("Cancelled", "Terminated", "Finished")
+        )
+
+        if is_cancelled:
+            current = frappe.db.get_value("Unit Master", unit, "status")
+            if current and current != "Available":
+                frappe.db.set_value("Unit Master", unit, "status", "Available")
+
+            lease = getattr(self, "propms_lease_agreement", None)
+            if lease:
+                la_status = frappe.db.get_value("Lease Agreement", lease, "status")
+                if la_status and la_status not in ("Cancelled", "Finished", "Expired"):
+                    frappe.db.set_value("Lease Agreement", lease, "status", "Finished")
+    except Exception as e:
+        app_error_log(frappe.session.user, str(e))

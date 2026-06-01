@@ -11,21 +11,35 @@
  "field_order": [
   "contract_number",
   "customer",
-  "contract_type",
-  "status",
+  "customer_name",
+  "company",
   "property_section",
   "property",
   "unit",
+  "contract_type",
   "column_break_1",
   "start_date",
   "end_date",
+  "status",
   "rent_section",
   "monthly_rent",
   "security_deposit",
+  "include_deposit_in_first_invoice",
   "column_break_2",
   "payment_frequency",
-  "linked_sales_invoice",
-  "notes"
+  "days_to_invoice_in_advance",
+  "sale_section",
+  "sale_amount",
+  "commission_percentage",
+  "column_break_3",
+  "commission_amount",
+  "items_section",
+  "items",
+  "schedule_section",
+  "invoice_schedule",
+  "notes_section",
+  "notes",
+  "amended_from"
  ],
  "fields": [
   {
@@ -46,12 +60,27 @@
    "reqd": 1
   },
   {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
    "fieldname": "contract_type",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Contract Type",
    "options": "Rent\nSale",
-   "reqd": 1
+   "reqd": 1,
+   "default": "Rent"
   },
   {
    "default": "Draft",
@@ -60,7 +89,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Draft\nActive\nExpired\nCancelled"
+   "options": "Draft\nActive\nExpired\nCancelled\nFinished"
   },
   {
    "fieldname": "property_section",
@@ -80,6 +109,7 @@
    "fieldname": "unit",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Unit",
    "options": "Unit Master",
    "reqd": 1
@@ -104,7 +134,8 @@
   {
    "fieldname": "rent_section",
    "fieldtype": "Section Break",
-   "label": "Commercial Details"
+   "label": "Rent / Commercial Details",
+   "depends_on": "eval:doc.contract_type=='Rent'"
   },
   {
    "fieldname": "monthly_rent",
@@ -117,29 +148,108 @@
    "label": "Security Deposit"
   },
   {
+   "default": "1",
+   "description": "If checked, security deposit is added as a line item to the FIRST invoice instead of a separate transaction.",
+   "fieldname": "include_deposit_in_first_invoice",
+   "fieldtype": "Check",
+   "label": "Include Deposit in First Invoice"
+  },
+  {
    "fieldname": "column_break_2",
    "fieldtype": "Column Break"
   },
   {
+   "default": "Monthly",
    "fieldname": "payment_frequency",
    "fieldtype": "Select",
    "label": "Payment Frequency",
-   "options": "Monthly\nQuarterly\nYearly"
+   "options": "Monthly\nQuarterly\nHalf Yearly\nYearly"
   },
   {
-   "fieldname": "linked_sales_invoice",
-   "fieldtype": "Link",
-   "label": "Linked Sales Invoice",
-   "options": "Sales Invoice"
+   "default": "0",
+   "description": "Days before the due date to flag a schedule as ready to invoice.",
+   "fieldname": "days_to_invoice_in_advance",
+   "fieldtype": "Int",
+   "label": "Days to Invoice in Advance"
+  },
+  {
+   "fieldname": "sale_section",
+   "fieldtype": "Section Break",
+   "label": "Sale Details",
+   "depends_on": "eval:doc.contract_type=='Sale'"
+  },
+  {
+   "description": "Total sale price of the property/unit (e.g. 1,000,000).",
+   "fieldname": "sale_amount",
+   "fieldtype": "Currency",
+   "label": "Sale Amount"
+  },
+  {
+   "description": "Commission rate charged on the sale (e.g. 1 means 1%).",
+   "fieldname": "commission_percentage",
+   "fieldtype": "Percent",
+   "label": "Commission %"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Auto-calculated: sale_amount * commission_percentage / 100. This is the amount invoiced.",
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "label": "Commission Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "Services / Lease Items"
+  },
+  {
+   "description": "Services or charges. Linked to ERPNext Item. Auto-populated from the selected Unit's services.",
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Lease Agreement Item"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Invoice Schedule"
+  },
+  {
+   "description": "Read-only schedule of upcoming invoices. The schedule is regenerated when items / dates / frequency change. No invoices are auto-created from this schedule.",
+   "fieldname": "invoice_schedule",
+   "fieldtype": "Table",
+   "label": "Invoice Schedule",
+   "options": "Lease Agreement Invoice Schedule",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Notes"
   },
   {
    "fieldname": "notes",
    "fieldtype": "Text",
    "label": "Notes"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Lease Agreement",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2026-05-18 00:00:00.000000",
+ "modified": "2026-05-25 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Lease Agreement",

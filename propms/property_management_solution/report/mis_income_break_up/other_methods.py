@@ -18,7 +18,15 @@ def get_rentals(filters):
         rentals = ["Commercial Rent", "Residential Rent"]
         for i in rentals:
             data = []
-            _filters = {"rental": i, "year": filters.get("year")}
+            _filters = {
+                "rental": i,
+                "year": filters.get("year"),
+                "from_date": filters.get("from_date"),
+                "to_date": filters.get("to_date"),
+                "property": filters.get("property"),
+                "unit": filters.get("unit"),
+                "tenant": filters.get("tenant"),
+            }
             get_sales_invoice(_filters, data, "Mis Income Break Up", months)
             if len(data) > 0 and len(data[len(data) - 1]) > 0:
                 data[len(data) - 1]["total"] = sum(data[len(data) - 1].values()) / len(
@@ -51,9 +59,20 @@ def get_rental_maintenance(filters, return_data):
         rentals = ["Commercial Rent", "Residential Rent", "Utility Charges"]
         for ii in rentals:
             data = []
-            _filters = {"rental": ii, "year": filters.get("year"), "maintenance": 1}
+            _filters = {
+                "rental": ii,
+                "year": filters.get("year"),
+                "maintenance": 1,
+                "from_date": filters.get("from_date"),
+                "to_date": filters.get("to_date"),
+                "property": filters.get("property"),
+                "unit": filters.get("unit"),
+                "tenant": filters.get("tenant"),
+            }
             if ii == "Utility Charges":
-                get_utility_sales_invoice(data, "Mis Income Break Up", months)
+                get_utility_sales_invoice(
+                    data, "Mis Income Break Up", months, filters=_filters
+                )
             else:
                 get_sales_invoice(_filters, data, "Mis Income Break Up", months)
             if len(data) > 0 and len(data[len(data) - 1]) > 0:

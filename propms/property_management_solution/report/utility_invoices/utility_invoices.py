@@ -10,6 +10,6 @@ def execute(filters=None):
     columns, data = [], []
     if filters.get("year"):
         columns = get_residential_columns(filters.get("year"))
-        get_utility_sales_invoice(data)
+        get_utility_sales_invoice(data, filters=filters)
 
     return columns, data

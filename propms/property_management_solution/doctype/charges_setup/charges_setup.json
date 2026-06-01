@@ -66,10 +66,12 @@
    "label": "Default Amount"
   },
   {
-   "default": "0",
+   "default": "No",
    "fieldname": "is_recurring",
-   "fieldtype": "Check",
-   "label": "Is Recurring"
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Is Recurring",
+   "options": "No\nYes"
   }
  ],
  "links": [],

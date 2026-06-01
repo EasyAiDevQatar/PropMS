@@ -1,0 +1,7 @@
+[pre_model_sync]
+propms.patches.v15_0.remove_replaced_doctypes
+
+[post_model_sync]
+propms.patches.v15_0.sync_property_workspaces
+propms.patches.v15_0.cleanup_legacy_property_owner
+propms.patches.v15_0.migrate_lease_to_lease_agreement

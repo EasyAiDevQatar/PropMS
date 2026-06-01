@@ -20,9 +20,12 @@
   "section_break_1",
   "bedrooms",
   "bathrooms",
+  "furnished",
   "column_break_2",
   "rent_amount",
   "sale_amount",
+  "rental_information_section",
+  "services",
   "accounting_section",
   "income_account",
   "cost_center"
@@ -62,9 +65,11 @@
    "fieldtype": "Column Break"
   },
   {
+   "description": "Apartment, Office, Shop, etc. Add new types via the Unit Type doctype.",
    "fieldname": "unit_type",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Unit Type",
    "options": "Unit Type"
   },
@@ -75,7 +80,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Available\nReserved\nRented\nSold"
+   "options": "Available\nReserved\nRented\nSold\nUnder Maintenance"
   },
   {
    "fieldname": "size",
@@ -84,7 +89,8 @@
   },
   {
    "fieldname": "section_break_1",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Specifications"
   },
   {
    "fieldname": "bedrooms",
@@ -95,6 +101,14 @@
    "fieldname": "bathrooms",
    "fieldtype": "Int",
    "label": "Bathrooms"
+  },
+  {
+   "default": "0",
+   "fieldname": "furnished",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Furnished"
   },
   {
    "fieldname": "column_break_2",
@@ -109,6 +123,18 @@
    "fieldname": "sale_amount",
    "fieldtype": "Currency",
    "label": "Sale Amount"
+  },
+  {
+   "fieldname": "rental_information_section",
+   "fieldtype": "Section Break",
+   "label": "Rental Information / \u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0625\u064a\u062c\u0627\u0631"
+  },
+  {
+   "description": "Services available for this unit. These are auto-populated into the Lease Agreement when a contract is created on this unit.",
+   "fieldname": "services",
+   "fieldtype": "Table",
+   "label": "Services",
+   "options": "Unit Service"
   },
   {
    "fieldname": "accounting_section",
@@ -129,7 +155,7 @@
   }
  ],
  "links": [],
- "modified": "2026-05-18 00:00:00.000000",
+ "modified": "2026-05-25 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Unit Master",

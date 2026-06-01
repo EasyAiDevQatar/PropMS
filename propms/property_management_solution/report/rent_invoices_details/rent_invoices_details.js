@@ -1,51 +1,73 @@
-// Copyright (c) 2016, Aakvatech and contributors
+// Copyright (c) 2026, Aakvatech and contributors
 // For license information, please see license.txt
 /* eslint-disable */
 
 frappe.query_reports["Rent Invoices Details"] = {
 	"filters": [
 		{
-            fieldname: 'company',
-            label: __('Company'),
-            fieldtype: 'Link',
-            options: 'Company',
+			fieldname: 'company',
+			label: __('Company'),
+			fieldtype: 'Link',
+			options: 'Company',
 			default: frappe.defaults.get_user_default('company'),
 			reqd: 1
-        },
-        {
-            fieldname: 'type_name',
-            label: __('Item Group'),
-            fieldtype: 'Link',
-            options: 'Item Group',
+		},
+		{
+			fieldname: 'type_name',
+			label: __('Item Group'),
+			fieldtype: 'Link',
+			options: 'Item Group',
 			default: 'All Item Groups',
 			"reqd": 1
 		},
 		{
-            fieldname:"from_date",
-            label: __("Start Date"),
-            fieldtype: "Date",
-            default: frappe.datetime.year_start(),
-            reqd: 1
-        },
-        {
-            fieldname:"to_date",
-            label: __("End Date"),
-            fieldtype: "Date",
-            default: frappe.datetime.get_today(),
-            reqd: 1
-        },
-        {
-            fieldname: 'foreign_currency',
-            label: __('Currency'),
-            fieldtype: 'Select',
-            default: 'USD',
+			fieldname: "from_date",
+			label: __("From Date"),
+			fieldtype: "Date",
+			default: frappe.datetime.year_start(),
+			reqd: 1
+		},
+		{
+			fieldname: "to_date",
+			label: __("To Date"),
+			fieldtype: "Date",
+			default: frappe.datetime.get_today(),
+			reqd: 1
+		},
+		{
+			fieldname: 'property',
+			label: __('Property'),
+			fieldtype: 'Link',
+			options: 'Property'
+		},
+		{
+			fieldname: 'unit',
+			label: __('Unit'),
+			fieldtype: 'Link',
+			options: 'Unit Master',
+			get_query: function() {
+				const property = frappe.query_report.get_filter_value("property");
+				return property ? { filters: { property: property } } : {};
+			}
+		},
+		{
+			fieldname: 'tenant',
+			label: __('Tenant'),
+			fieldtype: 'Link',
+			options: 'Customer'
+		},
+		{
+			fieldname: 'foreign_currency',
+			label: __('Currency'),
+			fieldtype: 'Select',
+			default: 'USD',
 			options: erpnext.get_presentation_currency_list()
-        },
-        {
-            fieldname: 'extand',
-            label: __('Extand'),
-            fieldtype: 'Check',
-            default: '0',
-        },
+		},
+		{
+			fieldname: 'extand',
+			label: __('Extand'),
+			fieldtype: 'Check',
+			default: '0'
+		}
 	]
 };

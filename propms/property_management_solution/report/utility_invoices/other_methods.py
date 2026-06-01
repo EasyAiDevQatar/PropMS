@@ -53,23 +53,52 @@ def get_residential_columns(year):
     return columns
 
 
-def get_utility_sales_invoice(data, from_other=None, months=None):
+def get_utility_sales_invoice(data, from_other=None, months=None, filters=None):
+    filters = filters or {}
     total = {}
-    lease_item = "'Utility Charges' "
-    query = """ SELECT * FROM `tabSales Invoice` AS SI WHERE EXISTS (SELECT * FROM `tabSales Invoice Item` AS SIT WHERE SIT.item_code = {0} and SIT.parent = SI.name )
-                and SI.docstatus=%s
-                ORDER by SI.customer,SI.from_date ASC""".format(
-        lease_item
-    ) % (
-        1
-    )
 
-    sales_invoices = frappe.db.sql(query, as_dict=True)
+    extra = []
+    args = {
+        "from_date": filters.get("from_date"),
+        "to_date": filters.get("to_date"),
+        "tenant": filters.get("tenant"),
+        "property": filters.get("property"),
+        "unit": filters.get("unit"),
+    }
+    if filters.get("from_date"):
+        extra.append("AND SI.posting_date >= %(from_date)s")
+    if filters.get("to_date"):
+        extra.append("AND SI.posting_date <= %(to_date)s")
+    if filters.get("tenant"):
+        extra.append("AND SI.customer = %(tenant)s")
+    if filters.get("property"):
+        extra.append(
+            "AND (l_old.property = %(property)s OR la.property = %(property)s)"
+        )
+    if filters.get("unit"):
+        extra.append("AND la.unit = %(unit)s")
+    extra_sql = " ".join(extra)
+
+    query = """
+        SELECT SI.*, COALESCE(la.property, l_old.property) AS resolved_property
+        FROM `tabSales Invoice` AS SI
+        LEFT JOIN `tabLease` l_old ON l_old.name = SI.lease
+        LEFT JOIN `tabLease Agreement Invoice Schedule` lais ON lais.sales_invoice = SI.name
+        LEFT JOIN `tabLease Agreement` la ON la.name = lais.parent
+        WHERE EXISTS (
+            SELECT 1 FROM `tabSales Invoice Item` AS SIT
+            WHERE SIT.item_code = 'Utility Charges' AND SIT.parent = SI.name
+        )
+        AND SI.docstatus = 1
+        {extra_sql}
+        ORDER BY SI.customer, SI.from_date ASC
+    """.format(extra_sql=extra_sql)
+
+    sales_invoices = frappe.db.sql(query, args, as_dict=True)
     previuos_customer = ""
     for i in sales_invoices:
-        lease = frappe.get_value("Lease", i.lease, "property")
         obj = {
-            "apartment_no": lease,
+            "apartment_no": i.get("resolved_property"),
             "client": i.customer,
             "advance_prev_year": "",
             "invoice_no": i.name,

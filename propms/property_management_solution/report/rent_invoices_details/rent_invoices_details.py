@@ -30,9 +30,6 @@ def execute(filters=None):
 
 def get_data(filters):
     rows = []
-    _from_date = "'{from_date}'".format(from_date=filters["from_date"])
-    _to_date = "'{to_date}'".format(to_date=filters["to_date"])
-    _company = "'{company}'".format(company=filters["company"])
     _items_grupe = filters.get("type_name")
     float_precision = cint(frappe.db.get_default("float_precision")) or 2
     if filters.get("company"):
@@ -41,44 +38,61 @@ def get_data(filters):
         company = get_default_company()
         default_currency = get_company_currency(company)
 
-    conditions = ""
+    extra_conditions = []
+    args = {
+        "company": filters.get("company"),
+        "from_date": filters.get("from_date"),
+        "to_date": filters.get("to_date"),
+        "tenant": filters.get("tenant"),
+        "property": filters.get("property"),
+        "unit": filters.get("unit"),
+    }
+
     if not filters.get("extand"):
-        conditions = "AND DATE(posting_date) BETWEEN {start} AND {end}".format(
-            start=_from_date, end=_to_date
+        extra_conditions.append(
+            "AND DATE(si.posting_date) BETWEEN %(from_date)s AND %(to_date)s"
         )
+    if filters.get("tenant"):
+        extra_conditions.append("AND si.customer = %(tenant)s")
+    if filters.get("property"):
+        extra_conditions.append(
+            "AND (l_old.property = %(property)s OR la.property = %(property)s)"
+        )
+    if filters.get("unit"):
+        extra_conditions.append("AND la.unit = %(unit)s")
 
-    query = """ 
+    extras = " ".join(extra_conditions)
+
+    query = """
             SELECT
-                name as invoice_id, 
-                customer, 
-                base_net_total as total, 
-                net_total as foreign_total,
-                currency, 
-                conversion_rate as exchange_rate, 
-                posting_date as date, 
-                lease
-            FROM
-                `tabSales Invoice`
-            WHERE
-                docstatus = 1 
-                AND company = {company} 
-                AND lease != ""
-                AND from_date != ""
-                AND to_date != ""
-                AND is_return != 1
-                {conditions}
-            ORDER BY lease DESC, posting_date DESC
-            """.format(
-        conditions=conditions, company=_company
-    )
+                si.name AS invoice_id,
+                si.customer,
+                si.base_net_total AS total,
+                si.net_total AS foreign_total,
+                si.currency,
+                si.conversion_rate AS exchange_rate,
+                si.posting_date AS date,
+                si.lease,
+                COALESCE(la.property, l_old.property) AS property_name,
+                la.unit AS unit
+            FROM `tabSales Invoice` si
+            LEFT JOIN `tabLease` l_old ON l_old.name = si.lease
+            LEFT JOIN `tabLease Agreement Invoice Schedule` lais ON lais.sales_invoice = si.name
+            LEFT JOIN `tabLease Agreement` la ON la.name = lais.parent
+            WHERE si.docstatus = 1
+                AND si.company = %(company)s
+                AND si.from_date IS NOT NULL
+                AND si.to_date IS NOT NULL
+                AND si.is_return != 1
+                {extras}
+            ORDER BY si.lease DESC, si.posting_date DESC
+            """.format(extras=extras)
 
-    sales_invoices = frappe.db.sql(query, as_dict=True)
+    sales_invoices = frappe.db.sql(query, args, as_dict=True)
 
     for invoice in sales_invoices:
         _items_rwos = []
         append = False
-        property_name = frappe.db.get_value("Lease", invoice["lease"], "property")
-        invoice["property_name"] = property_name
         if invoice.total == invoice.foreign_total:
             invoice.foreign_total, invoice.exchange_rate = "", ""
         # if filters.get("foreign_currency") and get_company_currency(filters.company) != filters.foreign_currency:

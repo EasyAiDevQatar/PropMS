@@ -12,6 +12,7 @@
  "is_default": 0,
  "is_standard": 1,
  "label": "Property MS",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Quick Actions</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Unit Master\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lease Agreement\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Maintenance Request\",\"col\":3}},{\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Documents\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Maintenance\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Reports and Analytics\",\"col\":8}},{\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
  "links": [
   {
    "hidden": 0,
@@ -60,55 +61,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Checkup Area",
-   "link_to": "Checklist Checkup Area",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Guard Shift",
-   "link_to": "Guard Shift",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Key Set",
-   "link_to": "Key Set",
-   "link_type": "DocType",
-   "onboard": 0,
-   "only_for": "",
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Tool Item Set",
-   "link_to": "Tool Item Set",
-   "link_type": "DocType",
-   "onboard": 0,
-   "only_for": "",
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Oursource Category",
-   "link_to": "Outsourcing Category",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Property Amenity",
-   "link_to": "Property Amenity",
+   "label": "Issue Type",
+   "link_to": "Issue Type",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -118,6 +72,15 @@
    "is_query_report": 0,
    "label": "Charges Setup",
    "link_to": "Charges Setup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Property Amenity",
+   "link_to": "Property Amenity",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -137,17 +100,7 @@
    "label": "Documents",
    "link_type": "DocType",
    "onboard": 0,
-   "only_for": "",
    "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Lease",
-   "link_to": "Lease",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
   },
   {
    "hidden": 0,
@@ -161,8 +114,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Payment Schedule",
-   "link_to": "Payment Schedule",
+   "label": "Contract",
+   "link_to": "Contract",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -170,8 +123,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Real Estate Invoice Request",
-   "link_to": "Real Estate Invoice Request",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -179,28 +132,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Keys Sets",
-   "link_to": "Key Set Detail",
-   "link_type": "DocType",
-   "onboard": 0,
-   "only_for": "",
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Tool Item Record",
-   "link_to": "Tool Item Record",
-   "link_type": "DocType",
-   "onboard": 0,
-   "only_for": "",
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Daily Checklist",
-   "link_to": "Daily Checklist",
+   "label": "Payment Entry",
+   "link_to": "Payment Entry",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -208,17 +141,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Exit",
-   "link_to": "Exit",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Meter Reading",
-   "link_to": "Meter Reading",
+   "label": "Customer",
+   "link_to": "Customer",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -235,8 +159,16 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Outsourcing Attendance",
-   "link_to": "Outsourcing Attendance",
+   "label": "Maintenance",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Maintenance Request",
+   "link_to": "Maintenance Request",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -244,8 +176,26 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Security Attendance",
-   "link_to": "Security Attendance",
+   "label": "Purchase Invoice",
+   "link_to": "Purchase Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Employee",
+   "link_to": "Employee",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Checklist",
+   "link_to": "Daily Checklist",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -278,8 +228,8 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Outsourcing Attendance",
-   "link_to": "Outsourcing Attendance",
+   "label": "Property Performance",
+   "link_to": "Property Performance",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -287,8 +237,8 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Security Attendance",
-   "link_to": "Security Attendance Report",
+   "label": "Expiring Leases",
+   "link_to": "Expiring Leases",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -296,8 +246,17 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Security Deposit",
-   "link_to": "Security Deposit",
+   "label": "Lease Information",
+   "link_to": "Lease Information",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Property Status",
+   "link_to": "Property Status",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -323,19 +282,101 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Property Status",
-   "link_to": "Property Status",
+   "label": "Security Deposit",
+   "link_to": "Security Deposit",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Invoice Details",
+   "link_to": "Invoice Details",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Rent Invoices Details",
+   "link_to": "Rent Invoices Details",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Utility Invoices",
+   "link_to": "Utility Invoices",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Subscription Service Report",
+   "link_to": "Subscription Service Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Mis-Income Break Up",
+   "link_to": "Mis-Income Break Up",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2022-05-16 16:58:39.426498",
+ "modified": "2026-05-25 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Property MS",
  "owner": "Administrator",
  "pin_to_bottom": 0,
  "pin_to_top": 0,
- "shortcuts": []
+ "shortcuts": [
+  {
+   "doc_view": "",
+   "label": "Property",
+   "link_to": "Property",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Unit Master",
+   "link_to": "Unit Master",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Lease Agreement",
+   "link_to": "Lease Agreement",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Maintenance Request",
+   "link_to": "Maintenance Request",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Property Type",
+   "link_to": "Property Type",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Charges Setup",
+   "link_to": "Charges Setup",
+   "type": "DocType"
+  }
+ ]
 }

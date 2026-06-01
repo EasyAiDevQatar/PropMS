@@ -1,4 +1,4 @@
-// Copyright (c) 2016, Aakvatech and contributors
+// Copyright (c) 2026, Aakvatech and contributors
 // For license information, please see license.txt
 /* eslint-disable */
 
@@ -22,23 +22,45 @@ frappe.query_reports["Rent Invoices Details USD"] = {
 		},
 		{
 			fieldname: "from_date",
-			label: __("Start Date"),
+			label: __("From Date"),
 			fieldtype: "Date",
 			default: frappe.datetime.year_start(),
 			reqd: 1
 		},
 		{
 			fieldname: "to_date",
-			label: __("End Date"),
+			label: __("To Date"),
 			fieldtype: "Date",
 			default: frappe.datetime.get_today(),
 			reqd: 1
 		},
 		{
+			fieldname: 'property',
+			label: __('Property'),
+			fieldtype: 'Link',
+			options: 'Property'
+		},
+		{
+			fieldname: 'unit',
+			label: __('Unit'),
+			fieldtype: 'Link',
+			options: 'Unit Master',
+			get_query: function() {
+				const property = frappe.query_report.get_filter_value("property");
+				return property ? { filters: { property: property } } : {};
+			}
+		},
+		{
+			fieldname: 'tenant',
+			label: __('Tenant'),
+			fieldtype: 'Link',
+			options: 'Customer'
+		},
+		{
 			fieldname: 'extand',
 			label: __('Extand'),
 			fieldtype: 'Check',
-			default: '0',
-		},
+			default: '0'
+		}
 	]
 };

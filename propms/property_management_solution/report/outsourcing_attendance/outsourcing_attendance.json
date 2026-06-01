@@ -13,7 +13,7 @@
  "name": "Outsourcing Attendance",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "SELECT  oa.owner as `Created by`,\n        oa.modified_by as `Approved by`,\n        upper(oa.shift_name) as `Shift`,\n        oa.shift_date as `Date:Date:`,\n        oad.person_name as `Person Name`,\n        oad.position as `Position`, \n        if(oad.status = 'Present', 1, 0) as `Present:Int:`,\n        if(oad.status = 'Absent ', 1, 0) as `Absent:Int:`,\n        if(oad.status = 'Day off', 1, 0) as `Day off:Int:`,\n        1 as `Total:Int:`,\n        oad.remarks as `Remarks`\nFROM    `tabOutsourcing Attendance` as  oa,\n        `tabOutsourcing Attendance Details` oad\nWHERE   oa.name = oad.parent    ",
+ "query": "SELECT  oa.owner as `Created by`,\n        oa.modified_by as `Approved by`,\n        upper(oa.shift_name) as `Shift`,\n        oa.shift_date as `Date:Date:`,\n        oad.person_name as `Person Name`,\n        oad.position as `Position`, \n        if(oad.status = 'Present', 1, 0) as `Present:Int:`,\n        if(oad.status = 'Absent ', 1, 0) as `Absent:Int:`,\n        if(oad.status = 'Day off', 1, 0) as `Day off:Int:`,\n        1 as `Total:Int:`,\n        oad.remarks as `Remarks`\nFROM    `tabOutsourcing Attendance` as  oa,\n        `tabOutsourcing Attendance Details` oad\nWHERE   oa.name = oad.parent\n  AND (%(from_date)s IS NULL OR %(from_date)s = '' OR oa.shift_date >= %(from_date)s)\n  AND (%(to_date)s IS NULL OR %(to_date)s = '' OR oa.shift_date <= %(to_date)s)",
  "ref_doctype": "Outsourcing Attendance",
  "report_name": "Outsourcing Attendance",
  "report_type": "Query Report",

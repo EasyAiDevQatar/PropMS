@@ -12,7 +12,7 @@
  "name": "Security Attendance Report", 
  "owner": "Administrator", 
  "prepared_report": 0, 
- "query": "SELECT  sa.owner as `Created by`,\n        sa.modified_by as `Approved by`,\n        upper(sa.shift_name) as `Shift`,\n        sa.shift_date as `Date:Date:`,\n        sad.guard_name as `Guard Name`,\n        sad.position as `Position`, \n        if(sad.status = 'Present', 1, 0) as `Present:Int:`,\n        if(sad.status = 'Absent ', 1, 0) as `Absent:Int:`,\n        if(sad.status = 'Day off', 1, 0) as `Day off:Int:`,\n        1 as `Total:Int:`,\n        sad.remarks as `Remarks`\nFROM    `tabSecurity Attendance` as  sa,\n        `tabSecurity Attendance Details` sad\nWHERE   sa.name = sad.parent    ", 
+ "query": "SELECT  sa.owner as `Created by`,\n        sa.modified_by as `Approved by`,\n        upper(sa.shift_name) as `Shift`,\n        sa.shift_date as `Date:Date:`,\n        sad.guard_name as `Guard Name`,\n        sad.position as `Position`, \n        if(sad.status = 'Present', 1, 0) as `Present:Int:`,\n        if(sad.status = 'Absent ', 1, 0) as `Absent:Int:`,\n        if(sad.status = 'Day off', 1, 0) as `Day off:Int:`,\n        1 as `Total:Int:`,\n        sad.remarks as `Remarks`\nFROM    `tabSecurity Attendance` as  sa,\n        `tabSecurity Attendance Details` sad\nWHERE   sa.name = sad.parent\n  AND (%(from_date)s IS NULL OR %(from_date)s = '' OR sa.shift_date >= %(from_date)s)\n  AND (%(to_date)s IS NULL OR %(to_date)s = '' OR sa.shift_date <= %(to_date)s)", 
  "ref_doctype": "Security Attendance", 
  "report_name": "Security Attendance Report", 
  "report_type": "Query Report", 

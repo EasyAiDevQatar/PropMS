@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Your Shortcuts</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lease\",\"col\":4}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Documents\",\"col\":5}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Shortcuts</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Unit Master\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Lease Agreement\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Maintenance Request\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Entry\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Property Type\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Unit Type\",\"col\":3}},{\"type\":\"card\",\"data\":{\"card_name\":\"Masters\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Documents\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Maintenance\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Settings\",\"col\":4}}]",
  "creation": "2020-12-28 17:56:01.070160",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -11,7 +11,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Documents",
+   "label": "Masters",
    "link_count": 6,
    "onboard": 0,
    "type": "Card Break"
@@ -19,8 +19,25 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Property",
+   "link_to": "Property",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Property Type",
+   "link_to": "Property Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Unit Master",
-   "link_count": 0,
    "link_to": "Unit Master",
    "link_type": "DocType",
    "onboard": 0,
@@ -29,8 +46,42 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Unit Type",
+   "link_to": "Unit Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Charges Setup",
+   "link_to": "Charges Setup",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Issue Type",
+   "link_to": "Issue Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Documents",
+   "link_count": 5,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Lease Agreement",
-   "link_count": 0,
    "link_to": "Lease Agreement",
    "link_type": "DocType",
    "onboard": 0,
@@ -39,9 +90,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Payment Schedule",
-   "link_count": 0,
-   "link_to": "Payment Schedule",
+   "label": "Contract",
+   "link_to": "Contract",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -49,9 +99,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Real Estate Invoice Request",
-   "link_count": 0,
-   "link_to": "Real Estate Invoice Request",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -59,9 +108,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Apartment Status",
-   "link_count": 0,
-   "link_to": "Apartment Status",
+   "label": "Payment Entry",
+   "link_to": "Payment Entry",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -69,30 +117,182 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Daily Checklist Detail",
-   "link_count": 0,
-   "link_to": "Daily Checklist Detail",
+   "label": "Customer",
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Maintenance",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Maintenance Request",
+   "link_to": "Maintenance Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Purchase Invoice",
+   "link_to": "Purchase Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Employee",
+   "link_to": "Employee",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 11,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Property Performance",
+   "link_to": "Property Performance",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Expiring Leases",
+   "link_to": "Expiring Leases",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Property Status",
+   "link_to": "Property Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Lease Information",
+   "link_to": "Lease Information",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Debtors Report",
+   "link_to": "Debtors Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Creditors Report",
+   "link_to": "Creditors Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Security Deposit",
+   "link_to": "Security Deposit",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Invoice Details",
+   "link_to": "Invoice Details",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Rent Invoices Details",
+   "link_to": "Rent Invoices Details",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Utility Invoices",
+   "link_to": "Utility Invoices",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Subscription Service Report",
+   "link_to": "Subscription Service Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Property Management Settings",
+   "link_to": "Property Management Settings",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2022-12-11 18:45:25.174279",
- "modified_by": "av-dev1@aakvatech.com",
+ "modified": "2026-05-25 00:00:00.000000",
+ "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Real Estate Management",
- "owner": "info@aakvatech.com",
+ "owner": "Administrator",
  "public": 1,
  "quick_lists": [],
  "roles": [],
  "sequence_id": 374.0,
  "shortcuts": [
-  {
-   "doc_view": "",
-   "label": "Lease",
-   "link_to": "Lease",
-   "type": "DocType"
-  },
   {
    "doc_view": "",
    "label": "Property",
@@ -113,8 +313,32 @@
   },
   {
    "doc_view": "",
-   "label": "Payment Schedule",
-   "link_to": "Payment Schedule",
+   "label": "Maintenance Request",
+   "link_to": "Maintenance Request",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Payment Entry",
+   "link_to": "Payment Entry",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Property Type",
+   "link_to": "Property Type",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Unit Type",
+   "link_to": "Unit Type",
    "type": "DocType"
   }
  ],

@@ -16,6 +16,7 @@
   "property_type",
   "parent_property",
   "is_group",
+  "disabled",
   "column_break_2",
   "address",
   "city_area",
@@ -77,8 +78,10 @@
    "label": "Property Name"
   },
   {
+   "description": "Building, Villa, Land, Office, Apartment, etc. Add new types via the Property Type doctype.",
    "fieldname": "property_type",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Property Type",
    "options": "Property Type"
   },
@@ -103,6 +106,7 @@
    "label": "City / Area"
   },
   {
+   "description": "Owner / \u0627\u0644\u0645\u0627\u0644\u0643. Must be an existing Customer record - leave blank if you do not have one yet.",
    "fieldname": "property_owner",
    "fieldtype": "Link",
    "label": "Owner",
@@ -311,6 +315,14 @@
    "label": "Is Group"
   },
   {
+   "default": "0",
+   "description": "When disabled, this property is not managed by us. Active leases must be cancelled first.",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Disabled"
+  },
+  {
    "fieldname": "old_parent",
    "fieldtype": "Link",
    "hidden": 1,
@@ -323,7 +335,7 @@
  "image_field": "photo",
  "is_tree": 1,
  "links": [],
- "modified": "2021-12-29 14:57:26.678556",
+ "modified": "2026-05-25 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Property",

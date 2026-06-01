@@ -53,6 +53,36 @@ class Lease(Document):
         except Exception as e:
             app_error_log(frappe.session.user, str(e))
 
+        self._sync_unit_status_on_close()
+
+    def on_cancel(self):
+        self._sync_unit_status_on_close(force=True)
+
+    def _sync_unit_status_on_close(self, force=False):
+        """When a legacy Lease is closed/not-materialized/cancelled, set any
+        Unit Master that points at this property back to Available.
+        """
+        try:
+            if not self.property:
+                return
+            should_release = (
+                force
+                or self.lease_status in ("Closed", "Not Materialized")
+                or (self.end_date and get_datetime(self.end_date) < get_datetime(now()))
+            )
+            if not should_release:
+                return
+
+            units = frappe.get_all(
+                "Unit Master",
+                filters={"property": self.property, "status": ("!=", "Available")},
+                pluck="name",
+            )
+            for unit in units:
+                frappe.db.set_value("Unit Master", unit, "status", "Available")
+        except Exception as e:
+            app_error_log(frappe.session.user, str(e))
+
 
 @frappe.whitelist()
 def getAllLease():
