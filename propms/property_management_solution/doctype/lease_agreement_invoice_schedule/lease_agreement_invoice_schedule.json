@@ -13,7 +13,8 @@
   "deposit_amount",
   "total_amount",
   "status",
-  "sales_invoice"
+  "sales_invoice",
+  "payment_entry"
  ],
  "fields": [
   {
@@ -74,6 +75,15 @@
    "in_list_view": 1,
    "label": "Sales Invoice",
    "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "payment_entry",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Payment Entry",
+   "options": "Payment Entry",
    "read_only": 1
   }
  ],

@@ -1,0 +1,12 @@
+{
+ "color": "#0f766e",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Occupied Units",
+ "method": "propms.property_management_solution.dashboard.get_occupied_units",
+ "module": "Property Management Solution",
+ "name": "Occupied Units",
+ "type": "Custom",
+ "document_type": "Property Unit"
+}

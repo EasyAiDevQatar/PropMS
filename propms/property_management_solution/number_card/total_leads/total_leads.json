@@ -1,0 +1,13 @@
+{
+ "color": "#ca8a04",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Total Leads",
+ "method": "propms.property_management_solution.dashboard.get_total_leads",
+ "module": "Property Management Solution",
+ "name": "Total Leads",
+ "stats_time_interval": "Monthly",
+ "type": "Custom",
+ "document_type": "Lead"
+}

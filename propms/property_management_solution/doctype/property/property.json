@@ -2,7 +2,10 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:name1",
+ "autoname": "format:IS-{YYYY}-{####}",
+ "show_title_field_in_link": 1,
+ "search_fields": "property_name,name1",
+ "title_field": "property_name",
  "color": "#ff0102",
  "creation": "2018-11-22 23:15:45.736517",
  "doctype": "DocType",
@@ -14,6 +17,7 @@
   "name1",
   "property_name",
   "property_type",
+  "pin_number",
   "parent_property",
   "is_group",
   "disabled",
@@ -68,7 +72,7 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "label": "Property Code",
-   "reqd": 1,
+   "read_only": 1,
    "unique": 1
   },
   {
@@ -84,6 +88,11 @@
    "in_standard_filter": 1,
    "label": "Property Type",
    "options": "Property Type"
+  },
+  {
+   "fieldname": "pin_number",
+   "fieldtype": "Data",
+   "label": "PIN Number"
   },
   {
    "fieldname": "parent_property",
@@ -106,7 +115,7 @@
    "label": "City / Area"
   },
   {
-   "description": "Owner / \u0627\u0644\u0645\u0627\u0644\u0643. Must be an existing Customer record - leave blank if you do not have one yet.",
+   "description": "Must be an existing Customer record - leave blank if you do not have one yet.",
    "fieldname": "property_owner",
    "fieldtype": "Link",
    "label": "Owner",

@@ -33,7 +33,7 @@
   "items",
   "totals_section",
   "total_cost",
-  "purchase_invoice",
+  "journal_entry",
   "amended_from"
  ],
  "fields": [
@@ -176,7 +176,7 @@
    "label": "Items / Services Used"
   },
   {
-   "description": "Items and services used in this maintenance. These flow into a Purchase Invoice.",
+   "description": "Items and services used in this maintenance. Total flows into a Journal Entry expense.",
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items Used",
@@ -193,10 +193,10 @@
    "read_only": 1
   },
   {
-   "fieldname": "purchase_invoice",
+   "fieldname": "journal_entry",
    "fieldtype": "Link",
-   "label": "Linked Purchase Invoice",
-   "options": "Purchase Invoice",
+   "label": "Linked Journal Entry",
+   "options": "Journal Entry",
    "read_only": 1
   },
   {
@@ -209,6 +209,7 @@
    "read_only": 1
   }
  ],
+ "is_submittable": 1,
  "links": [],
  "modified": "2026-05-25 00:00:00.000000",
  "modified_by": "Administrator",
@@ -217,6 +218,8 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -226,9 +229,12 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -238,9 +244,12 @@
    "report": 1,
    "role": "Property Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "email": 1,
    "export": 1,
@@ -249,6 +258,7 @@
    "report": 1,
    "role": "Maintenance Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

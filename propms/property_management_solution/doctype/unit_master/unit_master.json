@@ -22,6 +22,9 @@
   "bathrooms",
   "furnished",
   "column_break_2",
+  "ac_type",
+  "electricity_included",
+  "no_of_parking",
   "rent_amount",
   "sale_amount",
   "rental_information_section",
@@ -113,6 +116,26 @@
   {
    "fieldname": "column_break_2",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ac_type",
+   "fieldtype": "Select",
+   "label": "AC Type",
+   "options": "\nCentral\nSplit"
+  },
+  {
+   "default": "No",
+   "fieldname": "electricity_included",
+   "fieldtype": "Select",
+   "label": "Electricity Included",
+   "options": "Yes\nNo"
+  },
+  {
+   "default": "0",
+   "fieldname": "no_of_parking",
+   "fieldtype": "Select",
+   "label": "Number of Parking",
+   "options": "0\n1\n2\n3\n4\n5"
   },
   {
    "fieldname": "rent_amount",

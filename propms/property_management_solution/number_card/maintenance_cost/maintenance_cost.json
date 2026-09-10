@@ -1,0 +1,14 @@
+{
+ "color": "#64748b",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Maintenance Cost",
+ "method": "propms.property_management_solution.dashboard.get_maintenance_cost",
+ "module": "Property Management Solution",
+ "name": "Maintenance Cost",
+ "stats_time_interval": "Monthly",
+ "type": "Custom",
+ "document_type": "Maintenance Request",
+ "currency": "QAR"
+}

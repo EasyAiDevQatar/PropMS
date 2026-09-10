@@ -1,0 +1,12 @@
+{
+ "color": "#ea580c",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Open Tickets",
+ "method": "propms.property_management_solution.dashboard.get_open_tickets",
+ "module": "Property Management Solution",
+ "name": "Open Tickets",
+ "type": "Custom",
+ "document_type": "Maintenance Request"
+}

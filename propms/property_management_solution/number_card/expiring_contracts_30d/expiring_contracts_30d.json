@@ -1,0 +1,12 @@
+{
+ "color": "#f97316",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Expiring Contracts (30D)",
+ "method": "propms.property_management_solution.dashboard.get_expiring_contracts_30d",
+ "module": "Property Management Solution",
+ "name": "Expiring Contracts (30D)",
+ "type": "Custom",
+ "document_type": "Lease Contract"
+}

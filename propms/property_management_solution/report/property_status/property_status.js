@@ -5,18 +5,6 @@
 frappe.query_reports["Property Status"] = {
 	"filters": [
 		{
-			"fieldname": "from_date",
-			"label": __("From Date"),
-			"fieldtype": "Date",
-			"default": frappe.datetime.add_months(frappe.datetime.get_today(), -12)
-		},
-		{
-			"fieldname": "to_date",
-			"label": __("To Date"),
-			"fieldtype": "Date",
-			"default": frappe.datetime.get_today()
-		},
-		{
 			"fieldname": "property",
 			"label": __("Property"),
 			"fieldtype": "Link",
@@ -26,7 +14,7 @@ frappe.query_reports["Property Status"] = {
 			"fieldname": "unit",
 			"label": __("Unit"),
 			"fieldtype": "Link",
-			"options": "Unit Master",
+			"options": "Property Unit",
 			"get_query": function() {
 				const property = frappe.query_report.get_filter_value("property");
 				return property ? { filters: { property: property } } : {};
@@ -43,12 +31,19 @@ frappe.query_reports["Property Status"] = {
 			"label": __("Property Type"),
 			"fieldtype": "Link",
 			"options": "Property Type"
-		},
-		{
-			"fieldname": "owner_type",
-			"label": __("Owner Type"),
-			"fieldtype": "Link",
-			"options": "Customer Group"
 		}
-	]
-}
+	],
+
+	"formatter": function(value, row, column, data, default_formatter) {
+		value = default_formatter(value, row, column, data);
+		if (column.fieldname === "days_until_free" && data && data.days_until_free !== undefined && data.days_until_free !== null) {
+			const d = data.days_until_free;
+			let color = "green";
+			if (d === 0) color = "green";
+			else if (d <= 30) color = "darkorange";
+			else if (d <= 90) color = "orange";
+			value = `<span style="color:${color}; font-weight:600">${d}</span>`;
+		}
+		return value;
+	}
+};

@@ -19,6 +19,8 @@
   "section_break_12",
   "group_maintenance_job_items",
   "submit_maintenance_invoice",
+  "maintenance_expense_account",
+  "maintenance_credit_account",
   "column_break_14",
   "maintenance_item_group",
   "section_break_17",
@@ -90,6 +92,20 @@
    "fieldname": "submit_maintenance_invoice",
    "fieldtype": "Check",
    "label": "Submit Maintenance Invoice"
+  },
+  {
+   "description": "Default expense account for Maintenance Request Journal Entries.",
+   "fieldname": "maintenance_expense_account",
+   "fieldtype": "Link",
+   "label": "Maintenance Expense Account",
+   "options": "Account"
+  },
+  {
+   "description": "Credit side account for Maintenance Request Journal Entries (defaults to company payable).",
+   "fieldname": "maintenance_credit_account",
+   "fieldtype": "Link",
+   "label": "Maintenance Credit Account",
+   "options": "Account"
   },
   {
    "fieldname": "section_break_17",

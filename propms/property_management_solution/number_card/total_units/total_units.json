@@ -1,0 +1,12 @@
+{
+ "color": "#334155",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Total Units",
+ "method": "propms.property_management_solution.dashboard.get_total_units",
+ "module": "Property Management Solution",
+ "name": "Total Units",
+ "type": "Custom",
+ "document_type": "Property Unit"
+}

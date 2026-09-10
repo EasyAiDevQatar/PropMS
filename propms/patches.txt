@@ -5,3 +5,10 @@ propms.patches.v15_0.remove_replaced_doctypes
 propms.patches.v15_0.sync_property_workspaces
 propms.patches.v15_0.cleanup_legacy_property_owner
 propms.patches.v15_0.migrate_lease_to_lease_agreement
+propms.patches.v15_0.deactivate_lease_agreement_workflow
+propms.patches.v15_0.import_dashboard_and_workspaces
+propms.patches.v15_0.ensure_property_management_settings
+propms.patches.v15_0.fix_maintenance_cost_by_property_report_module
+propms.patches.v15_0.fix_property_status_report_type
+propms.patches.v15_0.enable_report_total_rows
+propms.patches.v15_0.drop_lease_agreement_contract_number_unique

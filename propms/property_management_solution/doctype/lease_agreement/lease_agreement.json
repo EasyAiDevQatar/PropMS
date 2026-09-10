@@ -2,7 +2,10 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:contract_number",
+ "autoname": "format:IS-{YYYY}-{####}",
+ "show_title_field_in_link": 1,
+ "search_fields": "customer_name,contract_number",
+ "title_field": "contract_display_name",
  "creation": "2026-05-18 00:00:00.000000",
  "doctype": "DocType",
  "document_type": "Document",
@@ -10,8 +13,11 @@
  "engine": "InnoDB",
  "field_order": [
   "contract_number",
+  "contract_display_name",
   "customer",
   "customer_name",
+  "buyer",
+  "buyer_name",
   "company",
   "property_section",
   "property",
@@ -23,8 +29,15 @@
   "status",
   "rent_section",
   "monthly_rent",
+  "rent_commission_only",
+  "rent_commission_months",
+  "column_break_rent_commission",
+  "rent_commission_amount",
   "security_deposit",
   "include_deposit_in_first_invoice",
+  "security_deposit_status",
+  "security_deposit_payment_entry",
+  "security_deposit_return_payment_entry",
   "column_break_2",
   "payment_frequency",
   "days_to_invoice_in_advance",
@@ -37,6 +50,7 @@
   "items",
   "schedule_section",
   "invoice_schedule",
+  "linked_payment_count",
   "notes_section",
   "notes",
   "amended_from"
@@ -47,8 +61,15 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Contract Number",
-   "reqd": 1,
-   "unique": 1
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "contract_display_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Contract Display Name",
+   "read_only": 1
   },
   {
    "fieldname": "customer",
@@ -64,6 +85,22 @@
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale'",
+   "fieldname": "buyer",
+   "fieldtype": "Link",
+   "label": "Buyer / Tenant",
+   "mandatory_depends_on": "eval:doc.contract_type=='Sale'",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale'",
+   "fetch_from": "buyer.customer_name",
+   "fieldname": "buyer_name",
+   "fieldtype": "Data",
+   "label": "Buyer Name",
    "read_only": 1
   },
   {
@@ -111,8 +148,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Unit",
-   "options": "Unit Master",
-   "reqd": 1
+   "options": "Unit Master"
   },
   {
    "fieldname": "column_break_1",
@@ -143,9 +179,57 @@
    "label": "Monthly Rent"
   },
   {
+   "default": "0",
+   "depends_on": "eval:doc.contract_type=='Rent'",
+   "description": "Brokerage rent: one sales invoice for your commission only (no rent invoice schedule).",
+   "fieldname": "rent_commission_only",
+   "fieldtype": "Check",
+   "label": "Rent Commission Only"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:doc.contract_type=='Rent' && doc.rent_commission_only",
+   "description": "Commission multiplier on monthly rent (1 = one month, 0.5 = half month).",
+   "fieldname": "rent_commission_months",
+   "fieldtype": "Float",
+   "label": "Rent Commission (Months)"
+  },
+  {
+   "fieldname": "column_break_rent_commission",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Rent' && doc.rent_commission_only",
+   "fieldname": "rent_commission_amount",
+   "fieldtype": "Currency",
+   "label": "Rent Commission Amount",
+   "read_only": 1
+  },
+  {
    "fieldname": "security_deposit",
    "fieldtype": "Currency",
    "label": "Security Deposit"
+  },
+  {
+   "default": "Not Received",
+   "fieldname": "security_deposit_status",
+   "fieldtype": "Select",
+   "label": "Security Deposit Status",
+   "options": "Not Received\nReceived\nReturned"
+  },
+  {
+   "fieldname": "security_deposit_payment_entry",
+   "fieldtype": "Link",
+   "label": "Deposit Received Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "security_deposit_return_payment_entry",
+   "fieldtype": "Link",
+   "label": "Deposit Return Payment Entry",
+   "options": "Payment Entry",
+   "read_only": 1
   },
   {
    "default": "1",
@@ -228,6 +312,12 @@
    "read_only": 1
   },
   {
+   "fieldname": "linked_payment_count",
+   "fieldtype": "Int",
+   "label": "Linked Payment Entries",
+   "read_only": 1
+  },
+  {
    "collapsible": 1,
    "fieldname": "notes_section",
    "fieldtype": "Section Break",
@@ -248,7 +338,19 @@
    "read_only": 1
   }
  ],
- "links": [],
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Billing",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "propms_lease_agreement"
+  },
+  {
+   "group": "Billing",
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "propms_lease_agreement"
+  }
+ ],
  "modified": "2026-05-25 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
@@ -256,6 +358,8 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -265,9 +369,12 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -277,6 +384,7 @@
    "report": 1,
    "role": "Property Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],

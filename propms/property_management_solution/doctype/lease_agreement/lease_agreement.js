@@ -17,6 +17,28 @@ frappe.ui.form.on("Lease Agreement", {
 	},
 
 	refresh: function(frm) {
+		// Direct save & submit — hide legacy workflow action buttons if present
+		frm.page.actions.find(".dropdown-item").each(function() {
+			const label = ($(this).text() || "").trim();
+			if (label.includes("Mark approved") || label.includes("Review")) {
+				$(this).hide();
+			}
+		});
+
+		if (!frm.is_new() && frm.doc.docstatus === 1) {
+			frappe.call({
+				method: "propms.property_management_solution.doctype.lease_agreement.lease_agreement.sync_invoice_schedule_payments",
+				args: { lease_agreement: frm.doc.name },
+				callback: function(r) {
+					if (r.message && r.message.updated) {
+						frm.reload_doc();
+					} else if (r.message && frm.doc.linked_payment_count !== r.message.linked_payment_count) {
+						frm.set_value("linked_payment_count", r.message.linked_payment_count);
+					}
+				}
+			});
+		}
+
 		if (!frm.is_new()) {
 			frm.add_custom_button(__("Generate Sales Invoice for Selected"), function() {
 				const selected = frm.fields_dict.invoice_schedule.grid.get_selected_children();
@@ -44,6 +66,49 @@ frappe.ui.form.on("Lease Agreement", {
 				});
 			}, __("Create"));
 		}
+
+		if (
+			frm.doc.docstatus === 1 &&
+			flt(frm.doc.security_deposit) > 0 &&
+			(frm.doc.security_deposit_status === "Received" || frm.doc.security_deposit_payment_entry) &&
+			!frm.doc.security_deposit_return_payment_entry
+		) {
+			frm.add_custom_button(__("Return Security Deposit"), function() {
+				frappe.call({
+					method: "propms.property_management_solution.doctype.lease_agreement.lease_agreement.make_deposit_return_payment_entry",
+					args: { lease_agreement: frm.doc.name },
+					callback: function(r) {
+						if (r.message) {
+							frappe.show_alert(__("Payment Entry {0} created", [r.message]));
+							frm.reload_doc();
+						}
+					}
+				});
+			}, __("Create"));
+		}
+
+		if (frm.doc.security_deposit_payment_entry) {
+			frm.add_custom_button(__("Open Deposit Payment"), function() {
+				frappe.set_route("Form", "Payment Entry", frm.doc.security_deposit_payment_entry);
+			});
+		}
+		if (frm.doc.security_deposit_return_payment_entry) {
+			frm.add_custom_button(__("Open Deposit Return"), function() {
+				frappe.set_route("Form", "Payment Entry", frm.doc.security_deposit_return_payment_entry);
+			});
+		}
+
+		if (!frm.is_new() && flt(frm.doc.linked_payment_count) > 0) {
+			frm.add_custom_button(
+				__("Payment Entries ({0})", [frm.doc.linked_payment_count]),
+				function() {
+					frappe.set_route("List", "Payment Entry", {
+						propms_lease_agreement: frm.doc.name,
+						docstatus: 1
+					});
+				}
+			);
+		}
 	},
 
 	unit: function(frm) {
@@ -58,7 +123,6 @@ frappe.ui.form.on("Lease Agreement", {
 			}
 		});
 
-		// Auto-import services from the unit if items table is empty
 		if (!(frm.doc.items || []).length) {
 			frappe.call({
 				method: "propms.property_management_solution.doctype.lease_agreement.lease_agreement.fetch_unit_services",
@@ -84,10 +148,21 @@ frappe.ui.form.on("Lease Agreement", {
 		});
 	},
 
+	buyer: function(frm) {
+		if (!frm.doc.buyer) return;
+		frappe.db.get_value("Customer", frm.doc.buyer, "customer_name", function(v) {
+			if (v) frm.set_value("buyer_name", v.customer_name);
+		});
+	},
+
 	contract_type: function(frm) {
 		if (frm.doc.contract_type === "Sale") {
 			frm.set_value("monthly_rent", 0);
 			frm.set_value("payment_frequency", "");
+			frm.set_value("rent_commission_only", 0);
+		} else {
+			frm.set_value("buyer", "");
+			frm.set_value("buyer_name", "");
 		}
 	},
 
@@ -97,6 +172,18 @@ frappe.ui.form.on("Lease Agreement", {
 
 	commission_percentage: function(frm) {
 		recalc_commission(frm);
+	},
+
+	monthly_rent: function(frm) {
+		recalc_rent_commission(frm);
+	},
+
+	rent_commission_only: function(frm) {
+		recalc_rent_commission(frm);
+	},
+
+	rent_commission_months: function(frm) {
+		recalc_rent_commission(frm);
 	}
 });
 
@@ -104,6 +191,12 @@ function recalc_commission(frm) {
 	if (frm.doc.contract_type !== "Sale") return;
 	const amt = (frm.doc.sale_amount || 0) * (frm.doc.commission_percentage || 0) / 100;
 	frm.set_value("commission_amount", amt);
+}
+
+function recalc_rent_commission(frm) {
+	if (frm.doc.contract_type !== "Rent" || !frm.doc.rent_commission_only) return;
+	const amt = (frm.doc.monthly_rent || 0) * (frm.doc.rent_commission_months || 1);
+	frm.set_value("rent_commission_amount", amt);
 }
 
 frappe.ui.form.on("Lease Agreement Item", {

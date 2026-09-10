@@ -12,8 +12,6 @@ from frappe.utils import flt, today
 
 class MaintenanceRequest(Document):
     def autoname(self):
-        # Frappe will use naming_series (MR-.YYYY.-) automatically; the
-        # explicit hook here just guards against an empty series.
         if not self.naming_series:
             self.naming_series = "MR-.YYYY.-"
 
@@ -52,57 +50,65 @@ class MaintenanceRequest(Document):
 
 
 @frappe.whitelist()
-def make_purchase_invoice(maintenance_request):
-    """Create a Purchase Invoice from items used in maintenance.
-
-    Items are grouped by supplier - one Purchase Invoice per supplier. If no
-    supplier is set on a row, a default placeholder Supplier 'Maintenance
-    Supplier' is used (created on the fly if needed).
-    """
+def make_journal_entry(maintenance_request):
+    """Create a Journal Entry for maintenance expense from the services/items total."""
     doc = frappe.get_doc("Maintenance Request", maintenance_request)
     doc.check_permission("write")
 
-    if doc.purchase_invoice:
-        frappe.throw(_("Purchase Invoice {0} is already linked").format(doc.purchase_invoice))
+    if doc.docstatus != 1:
+        frappe.throw(_("Submit the Maintenance Request before creating a Journal Entry"))
 
-    if not (doc.items or []):
-        frappe.throw(_("Add at least one item before creating a Purchase Invoice"))
+    if doc.journal_entry:
+        frappe.throw(_("Journal Entry {0} is already linked").format(doc.journal_entry))
 
-    grouped = {}
-    for row in doc.items:
-        supplier = row.supplier or _ensure_default_supplier()
-        grouped.setdefault(supplier, []).append(row)
+    if not flt(doc.total_cost):
+        frappe.throw(_("Total cost must be greater than zero"))
 
-    invoices = []
-    for supplier, rows in grouped.items():
-        invoice = frappe.get_doc(
-            {
-                "doctype": "Purchase Invoice",
-                "supplier": supplier,
-                "company": doc.company or _resolve_company(doc),
-                "posting_date": today(),
-                "due_date": today(),
-                "items": [
-                    {
-                        "item_code": r.item,
-                        "qty": r.qty or 1,
-                        "rate": flt(r.rate),
-                        "description": r.description or r.item_name,
-                        "uom": r.uom,
-                    }
-                    for r in rows
-                ],
-                "remarks": _("Maintenance Request: {0} - {1}").format(doc.name, doc.subject or ""),
-                "propms_maintenance_request": doc.name,
-                "propms_property": doc.property,
-                "propms_unit": doc.unit,
-            }
-        )
-        invoice.insert(ignore_permissions=False)
-        invoices.append(invoice.name)
+    settings = frappe.get_single("Property Management Settings")
+    expense_account = settings.maintenance_expense_account
+    if not expense_account:
+        frappe.throw(_("Set Maintenance Expense Account in Property Management Settings"))
 
-    doc.db_set("purchase_invoice", invoices[0])
-    return invoices
+    company = doc.company or _resolve_company(doc)
+    company_doc = frappe.get_doc("Company", company)
+    credit_account = settings.maintenance_credit_account or company_doc.default_cash_account
+    if credit_account and _account_requires_party(credit_account):
+        credit_account = company_doc.default_cash_account or company_doc.default_bank_account
+    if not credit_account or _account_requires_party(credit_account):
+        frappe.throw(_("Set Maintenance Credit Account in Property Management Settings to a Cash/Bank account"))
+
+    cost_center = None
+    if doc.property:
+        cost_center = frappe.db.get_value("Property", doc.property, "cost_center")
+
+    accounts = [
+        {
+            "account": expense_account,
+            "debit_in_account_currency": flt(doc.total_cost),
+            "cost_center": cost_center,
+        },
+        {
+            "account": credit_account,
+            "credit_in_account_currency": flt(doc.total_cost),
+            "cost_center": cost_center,
+        },
+    ]
+
+    je = frappe.get_doc(
+        {
+            "doctype": "Journal Entry",
+            "voucher_type": "Journal Entry",
+            "company": company,
+            "posting_date": today(),
+            "user_remark": _("Maintenance Request: {0} - {1}").format(doc.name, doc.subject or ""),
+            "accounts": accounts,
+        }
+    )
+    je.insert(ignore_permissions=False)
+    je.submit()
+
+    doc.db_set("journal_entry", je.name)
+    return je.name
 
 
 def _resolve_company(doc):
@@ -116,19 +122,8 @@ def _resolve_company(doc):
     )
 
 
-def _ensure_default_supplier():
-    name = "Maintenance Supplier"
-    if frappe.db.exists("Supplier", name):
-        return name
-    supplier_group = (
-        frappe.db.get_value("Supplier Group", {"is_group": 0}, "name")
-        or "All Supplier Groups"
-    )
-    frappe.get_doc(
-        {
-            "doctype": "Supplier",
-            "supplier_name": name,
-            "supplier_group": supplier_group,
-        }
-    ).insert(ignore_permissions=True)
-    return name
+def _account_requires_party(account):
+    if not account:
+        return False
+    account_type = frappe.db.get_value("Account", account, "account_type")
+    return account_type in ("Receivable", "Payable")

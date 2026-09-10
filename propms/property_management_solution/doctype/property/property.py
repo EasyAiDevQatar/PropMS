@@ -12,7 +12,13 @@ from frappe.utils.nestedset import NestedSet
 class Property(NestedSet):
     nsm_parent_field = "parent_property"
 
+    def before_insert(self):
+        if not self.name1 and self.name:
+            self.name1 = self.name
+
     def validate(self):
+        if self.name and not self.name1:
+            self.name1 = self.name
         self.validate_property_owner()
         self.validate_disabled_transition()
 
@@ -28,7 +34,7 @@ class Property(NestedSet):
         if self.property_owner and not frappe.db.exists("Customer", self.property_owner):
             frappe.msgprint(
                 _(
-                    "Owner / \u0627\u0644\u0645\u0627\u0644\u0643 '{0}' is not a Customer. "
+                    "Owner '{0}' is not a Customer. "
                     "Cleared - select an existing Customer or leave it blank."
                 ).format(self.property_owner),
                 indicator="orange",

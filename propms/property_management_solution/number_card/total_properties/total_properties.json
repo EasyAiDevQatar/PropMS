@@ -1,0 +1,12 @@
+{
+ "color": "#16a34a",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Total Properties",
+ "method": "propms.property_management_solution.dashboard.get_total_properties",
+ "module": "Property Management Solution",
+ "name": "Total Properties",
+ "type": "Custom",
+ "document_type": "Property"
+}

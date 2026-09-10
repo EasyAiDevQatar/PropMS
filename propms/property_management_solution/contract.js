@@ -36,6 +36,46 @@ frappe.ui.form.on("Contract", {
 			frm.add_custom_button(__("Open Lease Agreement"), function() {
 				frappe.set_route("Form", "Lease Agreement", frm.doc.propms_lease_agreement);
 			});
+
+			frappe.db.get_value(
+				"Lease Agreement",
+				frm.doc.propms_lease_agreement,
+				["linked_payment_count", "security_deposit", "security_deposit_status", "security_deposit_return_payment_entry", "docstatus"],
+				function(la) {
+					if (!la) return;
+
+					if (flt(la.linked_payment_count) > 0) {
+						frm.add_custom_button(
+							__("Payment Entries ({0})", [la.linked_payment_count]),
+							function() {
+								frappe.set_route("List", "Payment Entry", {
+									propms_lease_agreement: frm.doc.propms_lease_agreement,
+									docstatus: 1
+								});
+							}
+						);
+					}
+
+					if (
+						la.docstatus === 1 &&
+						flt(la.security_deposit) > 0 &&
+						la.security_deposit_status === "Received" &&
+						!la.security_deposit_return_payment_entry
+					) {
+						frm.add_custom_button(__("Return Security Deposit"), function() {
+							frappe.call({
+								method: "propms.property_management_solution.doctype.lease_agreement.lease_agreement.make_deposit_return_payment_entry",
+								args: { lease_agreement: frm.doc.propms_lease_agreement },
+								callback: function(r) {
+									if (r.message) {
+										frappe.show_alert(__("Payment Entry {0} created", [r.message]));
+									}
+								}
+							});
+						}, __("Create"));
+					}
+				}
+			);
 		}
 	}
 });

@@ -1,0 +1,12 @@
+{
+ "color": "#1d4ed8",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Active Contracts",
+ "method": "propms.property_management_solution.dashboard.get_active_contracts",
+ "module": "Property Management Solution",
+ "name": "Active Contracts",
+ "type": "Custom",
+ "document_type": "Lease Contract"
+}

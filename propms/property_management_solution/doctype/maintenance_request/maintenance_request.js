@@ -15,14 +15,18 @@ frappe.ui.form.on("Maintenance Request", {
 	},
 
 	refresh: function(frm) {
-		if (!frm.is_new() && !frm.doc.purchase_invoice && (frm.doc.items || []).length) {
-			frm.add_custom_button(__("Create Purchase Invoice"), function() {
+		if (
+			frm.doc.docstatus === 1 &&
+			!frm.doc.journal_entry &&
+			flt(frm.doc.total_cost) > 0
+		) {
+			frm.add_custom_button(__("Create Journal Entry"), function() {
 				frappe.call({
-					method: "propms.property_management_solution.doctype.maintenance_request.maintenance_request.make_purchase_invoice",
+					method: "propms.property_management_solution.doctype.maintenance_request.maintenance_request.make_journal_entry",
 					args: { maintenance_request: frm.doc.name },
 					callback: function(r) {
-						if (r.message && r.message.length) {
-							frappe.show_alert(__("Purchase Invoice(s) created: {0}", [r.message.join(", ")]));
+						if (r.message) {
+							frappe.show_alert(__("Journal Entry {0} created", [r.message]));
 							frm.reload_doc();
 						}
 					}
@@ -30,9 +34,9 @@ frappe.ui.form.on("Maintenance Request", {
 			}, __("Create"));
 		}
 
-		if (frm.doc.purchase_invoice) {
-			frm.add_custom_button(__("Open Purchase Invoice"), function() {
-				frappe.set_route("Form", "Purchase Invoice", frm.doc.purchase_invoice);
+		if (frm.doc.journal_entry) {
+			frm.add_custom_button(__("Open Journal Entry"), function() {
+				frappe.set_route("Form", "Journal Entry", frm.doc.journal_entry);
 			});
 		}
 	},

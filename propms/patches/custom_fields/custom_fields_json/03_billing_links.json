@@ -1,0 +1,70 @@
+[
+    {
+        "doctype": "Custom Field",
+        "dt": "Sales Invoice",
+        "fieldname": "propms_lease_agreement",
+        "fieldtype": "Link",
+        "label": "Lease Agreement",
+        "options": "Lease Agreement",
+        "insert_after": "customer",
+        "read_only": 1,
+        "in_standard_filter": 1,
+        "name": "Sales Invoice-propms_lease_agreement"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Sales Invoice",
+        "fieldname": "propms_property",
+        "fieldtype": "Link",
+        "label": "Property",
+        "options": "Property",
+        "insert_after": "propms_lease_agreement",
+        "read_only": 1,
+        "name": "Sales Invoice-propms_property"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Sales Invoice",
+        "fieldname": "propms_unit",
+        "fieldtype": "Link",
+        "label": "Unit",
+        "options": "Unit Master",
+        "insert_after": "propms_property",
+        "read_only": 1,
+        "name": "Sales Invoice-propms_unit"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Payment Entry",
+        "fieldname": "propms_lease_agreement",
+        "fieldtype": "Link",
+        "label": "Lease Agreement",
+        "options": "Lease Agreement",
+        "insert_after": "party",
+        "read_only": 1,
+        "in_standard_filter": 1,
+        "name": "Payment Entry-propms_lease_agreement"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Payment Entry",
+        "fieldname": "propms_property",
+        "fieldtype": "Link",
+        "label": "Property",
+        "options": "Property",
+        "insert_after": "propms_lease_agreement",
+        "read_only": 1,
+        "name": "Payment Entry-propms_property"
+    },
+    {
+        "doctype": "Custom Field",
+        "dt": "Payment Entry",
+        "fieldname": "propms_unit",
+        "fieldtype": "Link",
+        "label": "Unit",
+        "options": "Unit Master",
+        "insert_after": "propms_property",
+        "read_only": 1,
+        "name": "Payment Entry-propms_unit"
+    }
+]

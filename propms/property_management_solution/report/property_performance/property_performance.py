@@ -23,10 +23,10 @@ def get_columns():
         {"label": _("Active Leases"), "fieldname": "lease_count", "fieldtype": "Int", "width": 100},
         {"label": _("Revenue"), "fieldname": "revenue", "fieldtype": "Currency", "width": 140},
         {
-            "label": _("Maintenance Cost (Purchase Inv.)"),
+            "label": _("Maintenance Cost (Maintenance Request)"),
             "fieldname": "maintenance_cost",
             "fieldtype": "Currency",
-            "width": 200,
+            "width": 220,
         },
         {"label": _("Net"), "fieldname": "net", "fieldtype": "Currency", "width": 140},
     ]
@@ -93,7 +93,7 @@ def _get_active_lease_count(property_name, filters):
 
 
 def _get_revenue(property_name, filters):
-    """Sum of paid Sales Invoices for units belonging to this property."""
+    """Sum of submitted Sales Invoice amounts (invoiced, not payments received)."""
     extra = []
     args = {
         "property": property_name,
@@ -128,11 +128,7 @@ def _get_revenue(property_name, filters):
 
 
 def _get_maintenance_cost(property_name, filters):
-    """Maintenance cost is sourced from Purchase Invoices linked to maintenance.
-
-    A Purchase Invoice can be linked via the custom fields propms_property
-    (or via a Maintenance Request in propms_maintenance_request).
-    """
+    """Maintenance cost from submitted Maintenance Requests with a linked Journal Entry."""
     extra = []
     args = {
         "property": property_name,
@@ -140,18 +136,22 @@ def _get_maintenance_cost(property_name, filters):
         "to_date": filters.get("to_date"),
     }
     if filters.get("unit"):
-        extra.append("AND pi.propms_unit = %(unit)s")
+        extra.append("AND mr.unit = %(unit)s")
         args["unit"] = filters.get("unit")
 
     extra_sql = " ".join(extra)
     result = frappe.db.sql(
         """
-        SELECT COALESCE(SUM(pi.grand_total), 0)
-        FROM `tabPurchase Invoice` pi
-        WHERE pi.docstatus = 1
-          AND pi.propms_property = %(property)s
-          AND (%(from_date)s IS NULL OR pi.posting_date >= %(from_date)s)
-          AND (%(to_date)s IS NULL OR pi.posting_date <= %(to_date)s)
+        SELECT COALESCE(SUM(mr.total_cost), 0)
+        FROM `tabMaintenance Request` mr
+        INNER JOIN `tabJournal Entry` je ON je.name = mr.journal_entry
+        WHERE mr.docstatus = 1
+          AND je.docstatus = 1
+          AND mr.property = %(property)s
+          AND mr.journal_entry IS NOT NULL
+          AND mr.journal_entry != ''
+          AND (%(from_date)s IS NULL OR je.posting_date >= %(from_date)s)
+          AND (%(to_date)s IS NULL OR je.posting_date <= %(to_date)s)
           {extra_sql}
         """.format(extra_sql=extra_sql),
         args,

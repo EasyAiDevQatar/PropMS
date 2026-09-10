@@ -1,0 +1,14 @@
+{
+ "color": "#be123c",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Outstanding Amounts",
+ "method": "propms.property_management_solution.dashboard.get_outstanding_amounts",
+ "module": "Property Management Solution",
+ "name": "Outstanding Amounts",
+ "stats_time_interval": "Monthly",
+ "type": "Custom",
+ "document_type": "Sales Invoice",
+ "currency": "QAR"
+}

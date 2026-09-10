@@ -1,0 +1,14 @@
+{
+ "color": "#0891b2",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Total Collections",
+ "method": "propms.property_management_solution.dashboard.get_total_collections",
+ "module": "Property Management Solution",
+ "name": "Total Collections",
+ "stats_time_interval": "Monthly",
+ "type": "Custom",
+ "document_type": "Payment Entry",
+ "currency": "QAR"
+}

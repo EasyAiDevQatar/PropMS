@@ -16,8 +16,9 @@ from frappe.modules.import_file import import_file_by_path
 
 def execute():
 	base = frappe.get_app_path("propms", "property_management_solution")
-	for fname in ("real_estate_management", "property_ms"):
-		path = os.path.join(base, "workspace", fname, "{}.json".format(fname))
-		if os.path.isfile(path):
-			import_file_by_path(path, force=True)
+	path = os.path.join(base, "workspace", "real_estate_management", "real_estate_management.json")
+	if os.path.isfile(path):
+		import_file_by_path(path, force=True)
+	if frappe.db.exists("Workspace", "Real Estate Management"):
+		frappe.delete_doc("Workspace", "Real Estate Management", force=True, ignore_permissions=True)
 	frappe.clear_cache()

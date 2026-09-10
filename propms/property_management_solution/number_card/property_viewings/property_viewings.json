@@ -1,0 +1,13 @@
+{
+ "color": "#0d9488",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Property Viewings",
+ "method": "propms.property_management_solution.dashboard.get_property_viewings",
+ "module": "Property Management Solution",
+ "name": "Property Viewings",
+ "stats_time_interval": "Monthly",
+ "type": "Custom",
+ "document_type": "Property Viewing"
+}

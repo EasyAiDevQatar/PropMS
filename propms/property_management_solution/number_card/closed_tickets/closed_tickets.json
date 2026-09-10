@@ -1,0 +1,13 @@
+{
+ "color": "#64748b",
+ "doctype": "Number Card",
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Closed Tickets",
+ "method": "propms.property_management_solution.dashboard.get_closed_tickets",
+ "module": "Property Management Solution",
+ "name": "Closed Tickets",
+ "stats_time_interval": "Monthly",
+ "type": "Custom",
+ "document_type": "Maintenance Request"
+}

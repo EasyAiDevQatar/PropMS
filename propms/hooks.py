@@ -22,6 +22,7 @@ doctype_js = {
     "Issue": "property_management_solution/issue.js",
     "Company": "property_management_solution/company.js",
     "Contract": "property_management_solution/contract.js",
+    "Property Viewing": "property_management_solution/doctype/property_viewing/property_viewing.js",
 }
 
 after_install = [
@@ -34,6 +35,7 @@ after_migrate = [
     "propms.utils.create_custom_fields.execute",
     "propms.utils.create_property_setter.execute",
     "propms.setup_defaults.execute",
+    "propms.property_management_solution.sync_workspace.sync_property_lifecycle_dashboard",
 ]
 
 fixtures = [
@@ -72,9 +74,15 @@ fixtures = [
                     "Item-reading_required",
                     "Material Request Item-material_request",
                     "Material Request-sales_invoice",
+                    "Payment Entry-propms_lease_agreement",
+                    "Payment Entry-propms_property",
+                    "Payment Entry-propms_unit",
                     "Purchase Invoice-propms_maintenance_request",
                     "Purchase Invoice-propms_property",
                     "Purchase Invoice-propms_unit",
+                    "Sales Invoice-propms_lease_agreement",
+                    "Sales Invoice-propms_property",
+                    "Sales Invoice-propms_unit",
                     "Quotation-cost_center",
                     "Sales Invoice-job_card",
                     "Sales Invoice-lease_information",
@@ -156,6 +164,11 @@ doc_events = {
     "Contract": {
         "on_update": "propms.auto_custom.contract_status_changed",
         "on_cancel": "propms.auto_custom.contract_status_changed",
+    },
+    "Payment Entry": {
+        "validate": "propms.property_management_solution.billing_hooks.sync_lease_links_on_payment_entry",
+        "on_submit": "propms.property_management_solution.billing_hooks.update_lease_on_payment_entry_submit",
+        "on_cancel": "propms.property_management_solution.billing_hooks.update_lease_on_payment_entry_cancel",
     },
 }
 

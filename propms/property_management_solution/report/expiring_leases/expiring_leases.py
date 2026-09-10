@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import frappe
 from frappe import _
-from frappe.utils import date_diff, getdate, today
+from frappe.utils import add_days, date_diff, getdate, today
 
 
 def execute(filters=None):
@@ -31,8 +31,9 @@ def get_columns():
 
 
 def get_data(filters):
-    where = ["la.end_date IS NOT NULL"]
+    where = ["la.end_date IS NOT NULL", "la.contract_type = 'Rent'"]
     args = {}
+    today_date = getdate(today())
 
     if filters.get("from_date"):
         where.append("la.end_date >= %(from_date)s")
@@ -41,6 +42,11 @@ def get_data(filters):
     if filters.get("to_date"):
         where.append("la.end_date <= %(to_date)s")
         args["to_date"] = filters.get("to_date")
+    elif not filters.get("from_date"):
+        args["to_date"] = add_days(today_date, 90)
+        where.append("la.end_date <= %(to_date)s")
+        where.append("la.end_date >= %(today)s")
+        args["today"] = today_date
 
     if filters.get("property"):
         where.append("la.property = %(property)s")
@@ -55,6 +61,7 @@ def get_data(filters):
         args["tenant"] = filters.get("tenant")
 
     where.append("la.status NOT IN ('Cancelled', 'Finished')")
+    where.append("(la.docstatus = 1 OR la.status = 'Active')")
 
     rows = frappe.db.sql(
         """
@@ -74,7 +81,6 @@ def get_data(filters):
         as_dict=True,
     )
 
-    today_date = getdate(today())
     for row in rows:
         if row.end_date:
             row.days_until_expiry = date_diff(getdate(row.end_date), today_date)
