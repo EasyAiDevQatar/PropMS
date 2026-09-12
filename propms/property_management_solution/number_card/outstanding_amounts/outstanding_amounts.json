@@ -1,14 +1,22 @@
 {
  "color": "#be123c",
+ "creation": "2026-09-12 11:00:15.187430",
+ "currency": "QAR",
+ "docstatus": 0,
  "doctype": "Number Card",
+ "document_type": "Sales Invoice",
+ "idx": 0,
  "is_public": 1,
  "is_standard": 1,
  "label": "Outstanding Amounts",
  "method": "propms.property_management_solution.dashboard.get_outstanding_amounts",
+ "modified": "2026-09-12 11:00:16.270975",
+ "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Outstanding Amounts",
+ "owner": "Administrator",
+ "show_full_number": 0,
+ "show_percentage_stats": 0,
  "stats_time_interval": "Monthly",
- "type": "Custom",
- "document_type": "Sales Invoice",
- "currency": "QAR"
+ "type": "Custom"
 }

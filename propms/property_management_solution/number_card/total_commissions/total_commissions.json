@@ -1,14 +1,22 @@
 {
  "color": "#9333ea",
+ "creation": "2026-09-12 11:00:15.293843",
+ "currency": "QAR",
+ "docstatus": 0,
  "doctype": "Number Card",
+ "document_type": "Lease Contract",
+ "idx": 0,
  "is_public": 1,
  "is_standard": 1,
  "label": "Total Commissions",
  "method": "propms.property_management_solution.dashboard.get_total_commissions",
+ "modified": "2026-09-12 11:00:16.297273",
+ "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Total Commissions",
+ "owner": "Administrator",
+ "show_full_number": 0,
+ "show_percentage_stats": 0,
  "stats_time_interval": "Monthly",
- "type": "Custom",
- "document_type": "Lease Contract",
- "currency": "QAR"
+ "type": "Custom"
 }

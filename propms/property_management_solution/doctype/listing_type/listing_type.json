@@ -1,27 +1,27 @@
 {
  "actions": [],
- "autoname": "field:property_type_name",
- "creation": "2026-09-12 11:00:10.504007",
+ "autoname": "field:listing_type_name",
+ "creation": "2026-06-27 11:04:34.609488",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "property_type_name"
+  "listing_type_name"
  ],
  "fields": [
   {
-   "fieldname": "property_type_name",
+   "fieldname": "listing_type_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Property Type",
+   "label": "Listing Type",
    "reqd": 1,
    "unique": 1
   }
  ],
  "links": [],
- "modified": "2026-09-12 11:01:05.264020",
+ "modified": "2026-09-12 11:02:19.106996",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
- "name": "Property Type",
+ "name": "Listing Type",
  "owner": "Administrator",
  "permissions": [
   {

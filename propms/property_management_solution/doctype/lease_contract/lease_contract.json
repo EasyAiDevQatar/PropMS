@@ -1,0 +1,320 @@
+{
+ "actions": [],
+ "autoname": "format:IS-{YYYY}-{####}",
+ "creation": "2026-06-30 10:46:37.151719",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "contract_number",
+  "contract_display_name",
+  "amended_from",
+  "status",
+  "contract_type",
+  "tenant",
+  "property_owner",
+  "customer",
+  "property",
+  "unit",
+  "company",
+  "section_break_period",
+  "start_date",
+  "end_date",
+  "contract_duration",
+  "section_break_financial",
+  "monthly_rent",
+  "rent_commission_factor",
+  "discount",
+  "security_deposit",
+  "advance_payment",
+  "total_monthly_amount",
+  "column_break_sale",
+  "sale_amount",
+  "commission_percentage",
+  "commission_amount",
+  "commission_item",
+  "section_break_services",
+  "services",
+  "section_break_schedule",
+  "invoice_schedule",
+  "notes",
+  "approval_actions_done"
+ ],
+ "fields": [
+  {
+   "fieldname": "contract_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Contract Number",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "contract_display_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Contract Display Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Lease Contract",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nUnder Review\nApproved\nActive\nExpired",
+   "reqd": 1
+  },
+  {
+   "default": "Rent",
+   "fieldname": "contract_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Contract Type",
+   "options": "Rent\nSale\nRent Commission",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tenant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tenant",
+   "mandatory_depends_on": "eval:doc.contract_type=='Rent' || doc.contract_type=='Sale'",
+   "options": "Property Tenant"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale' || doc.contract_type=='Rent Commission'",
+   "fetch_from": "property.property_owner",
+   "fieldname": "property_owner",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "mandatory_depends_on": "eval:doc.contract_type=='Sale' || doc.contract_type=='Rent Commission'",
+   "options": "Property Owner"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit",
+   "options": "Property Unit"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Rent'",
+   "fieldname": "section_break_period",
+   "fieldtype": "Section Break",
+   "label": "Contract Period"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "mandatory_depends_on": "eval:doc.contract_type=='Rent'"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "mandatory_depends_on": "eval:doc.contract_type=='Rent'",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contract_duration",
+   "fieldtype": "Int",
+   "label": "Contract Duration (Months)",
+   "mandatory_depends_on": "eval:doc.contract_type=='Rent'"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale' || doc.contract_type=='Rent Commission'",
+   "fieldname": "section_break_financial",
+   "fieldtype": "Section Break",
+   "label": "Financial Information"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Rent Commission'",
+   "fieldname": "monthly_rent",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent",
+   "mandatory_depends_on": "eval:doc.contract_type=='Rent Commission'"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:doc.contract_type=='Rent Commission'",
+   "description": "1 = one month rent, 0.5 = half month, etc.",
+   "fieldname": "rent_commission_factor",
+   "fieldtype": "Float",
+   "label": "Commission Factor (Months)",
+   "mandatory_depends_on": "eval:doc.contract_type=='Rent Commission'"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Discount"
+  },
+  {
+   "fieldname": "security_deposit",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Security Deposit"
+  },
+  {
+   "fieldname": "advance_payment",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Advance Payment"
+  },
+  {
+   "fieldname": "total_monthly_amount",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Total Monthly",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale'",
+   "fieldname": "column_break_sale",
+   "fieldtype": "Column Break",
+   "label": "Sale"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale'",
+   "fieldname": "sale_amount",
+   "fieldtype": "Currency",
+   "label": "Sale Amount"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale'",
+   "fieldname": "commission_percentage",
+   "fieldtype": "Percent",
+   "label": "Commission %"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale' || doc.contract_type=='Rent Commission'",
+   "fieldname": "commission_amount",
+   "fieldtype": "Currency",
+   "label": "Commission Amount",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Sale' || doc.contract_type=='Rent Commission'",
+   "description": "Item used on the commission Sales Invoice when the contract is submitted.",
+   "fieldname": "commission_item",
+   "fieldtype": "Link",
+   "label": "Commission Item",
+   "options": "Item"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Rent'",
+   "fieldname": "section_break_services",
+   "fieldtype": "Section Break",
+   "label": "Services"
+  },
+  {
+   "fieldname": "services",
+   "fieldtype": "Table",
+   "label": "Services",
+   "options": "Lease Service"
+  },
+  {
+   "depends_on": "eval:doc.contract_type=='Rent'",
+   "fieldname": "section_break_schedule",
+   "fieldtype": "Section Break",
+   "label": "Invoice Schedule"
+  },
+  {
+   "fieldname": "invoice_schedule",
+   "fieldtype": "Table",
+   "label": "Invoice Schedule",
+   "options": "Lease Invoice Schedule"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "default": "0",
+   "fieldname": "approval_actions_done",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Approval Actions Done",
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-09-12 11:01:58.507647",
+ "modified_by": "Administrator",
+ "module": "Property Management Solution",
+ "name": "Lease Contract",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "System Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "read": 1,
+   "role": "Property Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "create": 1,
+   "read": 1,
+   "role": "Property User",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Accounts User"
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "contract_display_name,contract_number,tenant,property",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "contract_display_name"
+}

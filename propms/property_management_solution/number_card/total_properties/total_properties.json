@@ -1,12 +1,20 @@
 {
  "color": "#16a34a",
+ "creation": "2026-09-12 11:00:15.201258",
+ "docstatus": 0,
  "doctype": "Number Card",
+ "document_type": "Property",
+ "idx": 0,
  "is_public": 1,
  "is_standard": 1,
  "label": "Total Properties",
  "method": "propms.property_management_solution.dashboard.get_total_properties",
+ "modified": "2026-09-12 11:00:16.181883",
+ "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Total Properties",
- "type": "Custom",
- "document_type": "Property"
+ "owner": "Administrator",
+ "show_full_number": 0,
+ "show_percentage_stats": 0,
+ "type": "Custom"
 }

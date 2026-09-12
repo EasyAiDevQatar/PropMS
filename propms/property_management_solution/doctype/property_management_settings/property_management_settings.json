@@ -1,136 +1,111 @@
 {
  "actions": [],
- "creation": "2019-01-10 09:46:13.704896",
+ "creation": "2026-09-12 11:00:10.269702",
  "doctype": "DocType",
- "document_type": "Setup",
- "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "company",
-  "section_break_2",
-  "security_deposit_item",
-  "column_break_5",
-  "security_deposit_payment_type",
-  "damage_charge_item",
-  "section_break_8",
-  "column_break_10",
-  "section_break_9",
-  "invoice_start_date",
-  "section_break_12",
-  "group_maintenance_job_items",
-  "submit_maintenance_invoice",
+  "default_company",
+  "section_break_accounts",
+  "rent_income_account",
+  "receivable_account",
+  "column_break_accounts",
+  "deposit_account",
+  "deposit_mode_of_payment",
+  "cost_center",
+  "section_break_maintenance",
   "maintenance_expense_account",
   "maintenance_credit_account",
-  "column_break_14",
-  "maintenance_item_group",
-  "section_break_17",
-  "self_consumption_customer"
+  "section_break_items",
+  "rent_item",
+  "commission_item"
  ],
  "fields": [
   {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company"
-  },
-  {
-   "fieldname": "security_deposit_item",
-   "fieldtype": "Link",
-   "label": "Security Deposit Item",
-   "options": "Item"
-  },
-  {
-   "fieldname": "damage_charge_item",
-   "fieldtype": "Link",
-   "label": "Damage Charge Item",
-   "options": "Item"
-  },
-  {
-   "fieldname": "security_deposit_payment_type",
-   "fieldtype": "Link",
-   "label": "Security Deposit Payment Type",
-   "options": "Mode of Payment"
-  },
-  {
-   "default": "0",
-   "fieldname": "group_maintenance_job_items",
-   "fieldtype": "Check",
-   "label": "Group Maintenance Job Items"
-  },
-  {
-   "fieldname": "section_break_2",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_5",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_8",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_10",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_12",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_14",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "maintenance_item_group",
-   "fieldtype": "Table MultiSelect",
-   "label": "Maintenance Item Group",
-   "options": "MultiSelect Item Group"
-  },
-  {
-   "default": "0",
-   "fieldname": "submit_maintenance_invoice",
-   "fieldtype": "Check",
-   "label": "Submit Maintenance Invoice"
-  },
-  {
-   "description": "Default expense account for Maintenance Request Journal Entries.",
+   "description": "Debited when a Maintenance Request is submitted.",
    "fieldname": "maintenance_expense_account",
    "fieldtype": "Link",
    "label": "Maintenance Expense Account",
    "options": "Account"
   },
   {
-   "description": "Credit side account for Maintenance Request Journal Entries (defaults to company payable).",
+   "description": "Credited when a Maintenance Request is submitted (e.g. cash or payable).",
    "fieldname": "maintenance_credit_account",
    "fieldtype": "Link",
    "label": "Maintenance Credit Account",
    "options": "Account"
   },
   {
-   "fieldname": "section_break_17",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "self_consumption_customer",
+   "fieldname": "default_company",
    "fieldtype": "Link",
-   "label": "Self Consumption Customer",
-   "options": "Customer"
+   "label": "Default Company",
+   "options": "Company"
   },
   {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
+   "fieldname": "section_break_accounts",
+   "fieldtype": "Section Break",
+   "label": "Accounts"
   },
   {
-   "fieldname": "invoice_start_date",
-   "fieldtype": "Date",
-   "label": "Invoice Start Date"
+   "fieldname": "rent_income_account",
+   "fieldtype": "Link",
+   "label": "Rent Income Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "receivable_account",
+   "fieldtype": "Link",
+   "label": "Receivable Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_accounts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Account credited when a Lease Deposit is received (paid to).",
+   "fieldname": "deposit_account",
+   "fieldtype": "Link",
+   "label": "Lease Deposit Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "deposit_mode_of_payment",
+   "fieldtype": "Link",
+   "label": "Deposit Mode of Payment",
+   "options": "Mode of Payment"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "section_break_maintenance",
+   "fieldtype": "Section Break",
+   "label": "Maintenance"
+  },
+  {
+   "fieldname": "section_break_items",
+   "fieldtype": "Section Break",
+   "label": "Default Items"
+  },
+  {
+   "fieldname": "rent_item",
+   "fieldtype": "Link",
+   "label": "Rent Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "commission_item",
+   "fieldtype": "Link",
+   "label": "Sale Commission Item",
+   "options": "Item"
   }
  ],
- "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-09-27 12:28:52.887903",
+ "modified": "2026-09-12 11:01:15.188985",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Property Management Settings",
@@ -139,25 +114,18 @@
   {
    "create": 1,
    "delete": 1,
-   "email": 1,
-   "print": 1,
    "read": 1,
    "role": "System Manager",
-   "share": 1,
    "write": 1
   },
   {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "print": 1,
    "read": 1,
    "role": "Property Manager",
-   "share": 1,
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "track_changes": 1
+ "states": []
 }

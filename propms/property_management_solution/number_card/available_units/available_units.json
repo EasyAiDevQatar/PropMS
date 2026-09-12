@@ -1,12 +1,20 @@
 {
  "color": "#22c55e",
+ "creation": "2026-09-12 11:00:15.214939",
+ "docstatus": 0,
  "doctype": "Number Card",
+ "document_type": "Property Unit",
+ "idx": 0,
  "is_public": 1,
  "is_standard": 1,
  "label": "Available Units",
  "method": "propms.property_management_solution.dashboard.get_available_units",
+ "modified": "2026-09-12 11:00:16.202024",
+ "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Available Units",
- "type": "Custom",
- "document_type": "Property Unit"
+ "owner": "Administrator",
+ "show_full_number": 0,
+ "show_percentage_stats": 0,
+ "type": "Custom"
 }
