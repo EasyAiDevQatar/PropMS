@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\">Property Lifecycle Dashboard</span>\", \"col\": 12}}, {\"type\": \"paragraph\", \"data\": {\"text\": \"Property → Unit → Tenant → Lease Contract → Invoice Schedule → Invoice → Payment → Reports\", \"col\": 12}}, {\"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Key Metrics\", \"col\": 12}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Properties\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Units\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Available Units\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Occupied Units\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Sold Units\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Contracts\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Expired Contracts\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Expiring Contracts (30D)\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Expiring Contracts (120D)\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Monthly Revenue\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Monthly Expenses\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Unpaid Invoices\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Collections\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Outstanding Amounts\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Maintenance Cost\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Commissions\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Property Viewings\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Leads\", \"col\": 4}}, {\"type\": \"number_card\", \"data\": {\"number_card_name\": \"Total Opportunities\", \"col\": 4}}, {\"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Actions</b></span>\", \"col\": 12}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Property\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Unit\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Tenant\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Contract\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Invoice\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Record Payment\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Maintenance Request\", \"col\": 3}}, {\"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Create Deposit\", \"col\": 3}}, {\"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Workflow Sections</b></span>\", \"col\": 12}}, {\"type\": \"card\", \"data\": {\"card_name\": \"Master Data\", \"col\": 4}}, {\"type\": \"card\", \"data\": {\"card_name\": \"Leasing Operations\", \"col\": 4}}, {\"type\": \"card\", \"data\": {\"card_name\": \"Billing & Collections\", \"col\": 4}}, {\"type\": \"card\", \"data\": {\"card_name\": \"Maintenance Operations\", \"col\": 4}}, {\"type\": \"card\", \"data\": {\"card_name\": \"CRM & Sales\", \"col\": 4}}, {\"type\": \"card\", \"data\": {\"card_name\": \"Reports & Analytics\", \"col\": 4}}, {\"type\": \"card\", \"data\": {\"card_name\": \"Settings\", \"col\": 4}}, {\"type\": \"spacer\", \"data\": {\"col\": 12}}]",
+ "content": "[{\"id\": \"hdr_ws\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Workflow Sections</b></span>\", \"col\": 12}}, {\"id\": \"card_master\", \"type\": \"card\", \"data\": {\"card_name\": \"Master Data\", \"col\": 4}}, {\"id\": \"card_leasing\", \"type\": \"card\", \"data\": {\"card_name\": \"Leasing Operations\", \"col\": 4}}, {\"id\": \"card_billing\", \"type\": \"card\", \"data\": {\"card_name\": \"Billing & Collections\", \"col\": 4}}, {\"id\": \"card_maint\", \"type\": \"card\", \"data\": {\"card_name\": \"Maintenance Operations\", \"col\": 4}}, {\"id\": \"card_crm\", \"type\": \"card\", \"data\": {\"card_name\": \"CRM & Sales\", \"col\": 4}}, {\"id\": \"card_reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports & Analytics\", \"col\": 4}}, {\"id\": \"card_settings\", \"type\": \"card\", \"data\": {\"card_name\": \"Settings\", \"col\": 4}}]",
  "creation": "2020-12-28 17:56:01.070160",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -11,77 +11,6 @@
  "is_hidden": 0,
  "label": "Property Lifecycle Dashboard",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Workflow Stages",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Properties",
-   "link_to": "Property",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Units",
-   "link_to": "Property Unit",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Tenants",
-   "link_to": "Property Tenant",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Lease Contracts",
-   "link_to": "Lease Contract",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Sales Invoices",
-   "link_to": "Sales Invoice",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Payments",
-   "link_to": "Payment Entry",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Maintenance Requests",
-   "link_to": "Maintenance Request",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -377,90 +306,23 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Opportunities Report",
+   "link_to": "Opportunity Summary by Sales Stage",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link",
+   "report_ref_doctype": "Opportunity"
   }
  ],
  "modified": "2026-06-21 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Property Management Solution",
  "name": "Property Lifecycle Dashboard",
- "number_cards": [
-  {
-   "label": "Total Properties",
-   "number_card_name": "Total Properties"
-  },
-  {
-   "label": "Total Units",
-   "number_card_name": "Total Units"
-  },
-  {
-   "label": "Available Units",
-   "number_card_name": "Available Units"
-  },
-  {
-   "label": "Occupied Units",
-   "number_card_name": "Occupied Units"
-  },
-  {
-   "label": "Sold Units",
-   "number_card_name": "Sold Units"
-  },
-  {
-   "label": "Active Contracts",
-   "number_card_name": "Active Contracts"
-  },
-  {
-   "label": "Expired Contracts",
-   "number_card_name": "Expired Contracts"
-  },
-  {
-   "label": "Expiring Contracts (30D)",
-   "number_card_name": "Expiring Contracts (30D)"
-  },
-  {
-   "label": "Expiring Contracts (120D)",
-   "number_card_name": "Expiring Contracts (120D)"
-  },
-  {
-   "label": "Monthly Revenue",
-   "number_card_name": "Monthly Revenue"
-  },
-  {
-   "label": "Monthly Expenses",
-   "number_card_name": "Monthly Expenses"
-  },
-  {
-   "label": "Unpaid Invoices",
-   "number_card_name": "Unpaid Invoices"
-  },
-  {
-   "label": "Total Collections",
-   "number_card_name": "Total Collections"
-  },
-  {
-   "label": "Outstanding Amounts",
-   "number_card_name": "Outstanding Amounts"
-  },
-  {
-   "label": "Maintenance Cost",
-   "number_card_name": "Maintenance Cost"
-  },
-  {
-   "label": "Total Commissions",
-   "number_card_name": "Total Commissions"
-  },
-  {
-   "label": "Property Viewings",
-   "number_card_name": "Property Viewings"
-  },
-  {
-   "label": "Total Leads",
-   "number_card_name": "Total Leads"
-  },
-  {
-   "label": "Total Opportunities",
-   "number_card_name": "Total Opportunities"
-  }
- ],
+ "number_cards": [],
  "owner": "Administrator",
  "public": 1,
  "quick_lists": [],
@@ -473,63 +335,6 @@
   }
  ],
  "sequence_id": 374.0,
- "shortcuts": [
-  {
-   "color": "Grey",
-   "label": "Create Property",
-   "link_to": "Property",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Create Unit",
-   "link_to": "Property Unit",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Create Tenant",
-   "link_to": "Property Tenant",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Create Contract",
-   "link_to": "Lease Contract",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Create Invoice",
-   "link_to": "Sales Invoice",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Record Payment",
-   "link_to": "Payment Entry",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Create Maintenance Request",
-   "link_to": "Maintenance Request",
-   "type": "DocType",
-   "doc_view": "List"
-  },
-  {
-   "color": "Grey",
-   "label": "Create Deposit",
-   "link_to": "Lease Deposit",
-   "type": "DocType",
-   "doc_view": "List"
-  }
- ],
+ "shortcuts": [],
  "title": "Property Lifecycle Dashboard"
 }

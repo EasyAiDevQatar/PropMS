@@ -161,11 +161,10 @@ def build_workspace_dict(existing=None):
 
 	sections = _build_sections(standalone, child, reports)
 	links = _build_links(sections, reports)
-	shortcuts = _build_shortcuts(sections)
 	content = _build_content(sections)
 
 	return {
-		"charts": existing.get("charts") or [],
+		"charts": [],
 		"content": json.dumps(content, ensure_ascii=False),
 		"creation": existing.get("creation") or "2020-12-28 17:56:01.070160",
 		"docstatus": 0,
@@ -181,7 +180,7 @@ def build_workspace_dict(existing=None):
 		"modified_by": "Administrator",
 		"module": MODULE,
 		"name": "Property Lifecycle Dashboard",
-		"number_cards": [{"label": name, "number_card_name": name} for name in NUMBER_CARDS],
+		"number_cards": [],
 		"owner": "Administrator",
 		"public": 1,
 		"quick_lists": [],
@@ -192,7 +191,7 @@ def build_workspace_dict(existing=None):
 			{"role": "Accounts User"},
 		],
 		"sequence_id": existing.get("sequence_id") or 374.0,
-		"shortcuts": shortcuts,
+		"shortcuts": [],
 		"title": "Property Lifecycle Dashboard",
 	}
 
@@ -313,62 +312,15 @@ def _build_shortcuts(sections):
 
 
 def _build_content(sections):
+	"""Card-only layout: Workflow Sections link cards (no metrics / quick actions)."""
 	content = [
-		{"type": "header", "data": {"text": '<span class="h4">Property Lifecycle Dashboard</span>', "col": 12}},
 		{
-			"type": "paragraph",
-			"data": {
-				"text": "Complete Property Management Solution — masters, operations, billing, maintenance, and reports.",
-				"col": 12,
-			},
+			"type": "header",
+			"data": {"text": '<span class="h4"><b>Workflow Sections</b></span>', "col": 12},
 		},
-		{"type": "spacer", "data": {"col": 12}},
-		{"type": "header", "data": {"text": '<span class="h4"><b>Quick Actions</b></span>', "col": 12}},
 	]
-	for label, _link_to, _link_type, _doc_view in QUICK_ACTIONS:
-		content.append({"type": "shortcut", "data": {"shortcut_name": label, "col": 3}})
-
-	content.extend(
-		[
-			{"type": "spacer", "data": {"col": 12}},
-			{"type": "header", "data": {"text": '<span class="h4"><b>Key Metrics</b></span>', "col": 12}},
-		]
-	)
-	for name in NUMBER_CARDS:
-		content.append({"type": "number_card", "data": {"number_card_name": name, "col": 4}})
-
-	content.extend(
-		[
-			{"type": "spacer", "data": {"col": 12}},
-			{"type": "header", "data": {"text": '<span class="h4"><b>Property Management Solution</b></span>', "col": 12}},
-			{
-				"type": "paragraph",
-				"data": {
-					"text": "DocTypes grouped by area below. Reports open from the Reports & Analytics link list.",
-					"col": 12,
-				},
-			},
-		]
-	)
-
-	for section_name, items in sections:
-		content.append({"type": "spacer", "data": {"col": 12}})
-		content.append(
-			{"type": "header", "data": {"text": '<span class="h5"><b>{}</b></span>'.format(section_name), "col": 12}}
-		)
-
-		if section_name == REPORTS_SECTION:
-			# Frappe link cards route Script/Query/Report Builder reports correctly.
-			content.append({"type": "card", "data": {"card_name": REPORTS_SECTION, "col": 12}})
-			continue
-
-		seen = set()
-		for label, link_type in items:
-			if link_type != "DocType" or label in seen:
-				continue
-			seen.add(label)
-			content.append({"type": "shortcut", "data": {"shortcut_name": label, "col": 3}})
-
+	for section_name, _items in sections:
+		content.append({"type": "card", "data": {"card_name": section_name, "col": 4}})
 	return content
 
 
